@@ -77,7 +77,7 @@
                         },
                         "sampleWeight": {
                             "type": "number",
-                            "description": "Wight of the sample, in kilograms."
+                            "description": "Weight of the sample, in kilograms."
                         },
                         "measurementConditions": {
                             "type": "number",
