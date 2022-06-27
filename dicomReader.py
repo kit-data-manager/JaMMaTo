@@ -1,9 +1,9 @@
-from matplotlib.font_manager import json_dump
 import pydicom
 import re
 import logging
 
-class dicomReader:
+# This class instantiates the class object of a dicom file, which contains the key-value pairs of the fiel metadata.
+class DicomReader:
     
     def __init__(self, dicomFile, studyName, seriesName):
         
@@ -22,7 +22,9 @@ class dicomReader:
         self.__dict__.pop("subDict")
         self.__dict__.pop("dicomFile")
         self.__dict__.pop("pixelData")
-
+    
+    #This method parses the pydicom.Dataset objects created by the pyDicom module to retrieve the primitive data types
+    # and separate the attributes.
     def dataset(self, dataset):
         subDict={}
         subList=[]
@@ -63,6 +65,8 @@ class dicomReader:
         else:
             return subDict
 
+    #This method parses the pydicom.Sequence objects created by the pyDicom module to retrieve the primitive data types
+    # and separate the attributes 
     def sequence(self, sequence):
         subDict={}
         subList=[]
