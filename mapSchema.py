@@ -1,5 +1,9 @@
-class fillSchema:
+#This class takes the schema structure as dictionary and the metadata map to assign the metadata values to the schema attributes 
+# at the proper hirarchy level.
 
+class MapSchema:
+
+    #This method parses the objects in the schema structure and calls the proper method to insert the attribute value, based on the attribute type.
     def fillObject(self, dictionary: dict(), keys: list(), values: list()):
         newDict={}
         for i in keys:
@@ -26,6 +30,7 @@ class fillSchema:
             else: pass
         return newDict
 
+    #This method parses the arrays in the schema structure and calls the proper method to insert the attribute value, based on the attribute type.
     def fillArray(self, jsonObject, jsonObjectProperty, jsonArray, newArrayContent):
         if type(newArrayContent)!=type(list()):
             try:
@@ -33,8 +38,7 @@ class fillSchema:
                     if jsonObjectProperty == x:
                         try:
                             newArrayContent=y
-                        except:
-                            pass
+                        except: pass
                     else: pass
             except: #This condition is for the case of having multiple array levels for one attribute, because the logic in the next step expects the value of this key, which is of type string, to recieve a 
                 #value of type list.
@@ -46,8 +50,7 @@ class fillSchema:
                     if jsonObjectProperty == x:
                         try:
                             newArrayContent=y
-                        except:
-                            pass
+                        except: pass
                     else: pass
             except: pass
         else: pass
@@ -66,8 +69,7 @@ class fillSchema:
                             else: pass
                     else:
                         newList.append(self.getType(type(i), newArrayContent[j]))
-                except:
-                    pass
+                except: pass
             elif type(i)==type(dict()):
                 try:
                     newList.append(self.fillObject(i, list(i.keys()), newArrayContent[j]))
@@ -76,14 +78,13 @@ class fillSchema:
 
             elif type(i)==type(list()):
                 newList.append(self.fillArray(jsonObject, jsonObjectProperty, i, newArrayContent[j]))
-            else:
-                pass
+            else: pass
         return newList
 
+    #This method conforms the primitive data types of the attribute values stored in the map and assigns those values to the schema attribute. The correct hirarchial
+    #position has been reached through the methods above.
     def getType(self, type, variable):
-        if type=="str":
-            return str(variable)
-        elif type=="int":
+        if type=="int":
             return int(variable)
         elif type=="float":
             return float(variable)
