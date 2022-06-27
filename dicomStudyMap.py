@@ -1,4 +1,7 @@
-class dicomStudyMap:
+#This class contains the hard coded attribute assignments of the dicom metadata values all refering to
+# one Study, stored in the DicomReader class instance.
+
+class DicomStudyMap:
 
     def __init__(self, metadataAttributes):
        for i in metadataAttributes.__dict__:
@@ -49,6 +52,10 @@ class dicomStudyMap:
             if i == "manufacturersDeviceClassUID":
                 self.manufacturerID=metadataAttributes.__dict__[i]
 
+            #Additional Attributes, not in the dicom file.
+            self.studyName="StudyName"
+
+    #Adding attributes outside of this class, for example the series objects of a study.
     def updateMap(self, **args):
         self.__dict__.update(args)
             
