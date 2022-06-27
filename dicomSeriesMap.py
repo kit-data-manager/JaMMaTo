@@ -1,6 +1,7 @@
-#depends on dicomStudyMap
+#Extends on dicomStudyMap with the schema attributes that have different values for each dicom Series of a Study. Therefore, each Series (i.e. dicom file) has one
+#class instance.
 
-class dicomSeriesMap:
+class DicomSeriesMap:
 
     def __init__(self, metadataAttributes):
 
@@ -32,11 +33,11 @@ class dicomSeriesMap:
             if i == "columns":
                 self.columns=metadataAttributes.__dict__[i]
             if i == "frameType":
-                self.frameType=metadataAttributes.__dict__[i]
-            if i == "sampleImagePosition":
+                self.imageType=metadataAttributes.__dict__[i]
+            if i == "imagePosition":
                 self.sampleImagePosition=metadataAttributes.__dict__[i]
-            if i == "pixelPresentation":
-                self.pixelPresentation=metadataAttributes.__dict__[i]
+            if i == "pixelRepresentation":
+                self.pixelRepresentation=metadataAttributes.__dict__[i]
             if i == "smallestImagePixelValue":
                 self.smallestImagePixelValue=metadataAttributes.__dict__[i]
             if i == "largestImagePixelValue":
