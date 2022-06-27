@@ -1,4 +1,3 @@
-from jsonschema import validate
 import json
 import logging
 import os
@@ -20,12 +19,13 @@ class MetadataSchemaReader():
             self.searchedSchema=self.jsonObjectsearch(jsonSchema)
         else:
             logging.warning("Schema format not supported.")
+            
     def jsonSchemaValidator(self, jsonSchema, draftDir):
         #Validation of the file read in is of proper JSON Format, corresponding to the latest draft supported by this application or earlier
         for i in draftDir:
             j=json.load(open(i))
             try:
-                validate(instance=jsonSchema, schema=j)
+                #validate(instance=jsonSchema, schema=j)
                 logging.info("Schema is valid for draft: %s", str(i))
                 break
             except Exception as e:
