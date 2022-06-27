@@ -20,7 +20,7 @@ What is missing yet, is the consideration of enumerations and size restrictions 
 # 2. class: MetadataReader
 
 This class takes as argument the metadata file directory, identifies the format of the files and calls one one the following classes (currently only one):
-   # 2.1 class: DicomReader
+   ## 2.1 class: DicomReader
    This class is used to transfer metadata from a dicom file to Pyhton object of the class. It implements the pyDicom module to transfer the metadata key-value pairs
    to the object. For a dicom Study that contains multiple Series, multiple dicom files will be in the directory. Therefore, a corresponding amount of Python objects will
    be created for each dicom file.
