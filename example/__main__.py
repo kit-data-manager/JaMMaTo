@@ -1,4 +1,4 @@
-from executeDicomMapping import ExecuteDicomMapping
+import NEPMetadataMapping
 
-#This call execute the mapping for a dicom Study to a custom MRI schema.
-ExecuteDicomMapping(jsonSchema="PATH", metadata="PATH", draftDir="PATH")
+NEPMetadataMapping.DicomMapping(jsonSchema="PATH to schema document", metadata="PATH to folder with files (e.g. dicom)", 
+                                draftDir="PATH to draft(s) for the schema", mappedMetadata="PATH to mapped metadata document")
