@@ -15,7 +15,7 @@ class MetadataSchemaReader():
                 self.definitions=jsonSchema["definitions"]
             except:
                 pass
-            self.jsonSchemaValidator(jsonSchema, draftDir)
+            #self.jsonSchemaValidator(jsonSchema, draftDir)
             self.searchedSchema=self.jsonObjectsearch(jsonSchema)
         else:
             logging.warning("Schema format not supported.")

@@ -6,7 +6,7 @@ class DicomStudyMap:
     def __init__(self, metadataAttributes):
        for i in metadataAttributes.__dict__:
             if i == "sopClassUid":
-                self.entryID=metadataAttributes.__dict__[i]
+                self.studyID=metadataAttributes.__dict__[i]
             if i == "studyDescription":
                 self.studyTitle=metadataAttributes.__dict__[i]
             if i == "studyTime":
@@ -25,8 +25,6 @@ class DicomStudyMap:
                 self.institutionAcronym=metadataAttributes.__dict__[i]
             if i == "institutionalDepartmentName":
                 self.institutionDepartment=metadataAttributes.__dict__[i]
-            if i == "institutionalDepartmentTypeCodeSequence":
-                self.institutionID=metadataAttributes.__dict__[i]
             if i == "institutionalDepartmentTypeCodeSequence":
                 self.institutionID=metadataAttributes.__dict__[i]
             if i == "personsTelecomInformation":
