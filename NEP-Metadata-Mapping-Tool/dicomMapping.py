@@ -6,7 +6,7 @@ from dicomSeriesMap import DicomSeriesMap
 from mapSchema import MapSchema
 
 #This class uses all components of the mapping tool functionality for dicom and executes them consecutively in the proper order. 
-class dicomMapping:
+class DicomMapping:
 
     def __init__(self, jsonSchema, metadata, draftDir, mappedMetadata='mappedMetadata.json'):
         
