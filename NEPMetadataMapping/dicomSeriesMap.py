@@ -26,8 +26,6 @@ class DicomSeriesMap:
                 self.pixelSpacing=metadataAttributes.__dict__[i]
             if i == "sliceThickness":
                 self.sliceThickness=metadataAttributes.__dict__[i]
-            if i == "imageSize":
-                self.imageSize=metadataAttributes.__dict__[i]
             if i == "rows":
                 self.rows=metadataAttributes.__dict__[i]
             if i == "columns":
