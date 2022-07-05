@@ -40,3 +40,7 @@ those maps are connected to the common map. This is planned to be implemented in
 This class takes the Python dictionary of the target schema and the map class of the metadata file, containing the key-value pairs of the metadata. Based on the target schema structure,
 the assigned values are mapped to the proper schema location, considering the schema hirarchy and data types of the attributes. What is currently missing, is the option to use additionalProperties 
 in the JSON schema, as well as consideration of array length, or array enumaration. The resul is a JSON compatible dictionary that can be exported to a JOSN document.
+
+## 5. class: DicomMapping
+
+This class simply imports uses all class components described above, in order to execute them in a proper order for mapping metadata from a dicom study to a provided metadata JSON schema. The user then simply uses this class to provide the directories of the files containing the metadata and the schema.
