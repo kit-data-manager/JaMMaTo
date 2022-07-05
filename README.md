@@ -2,6 +2,9 @@
 
 This object orientied mapping tool is based on Python, and is used for mapping metadata from a file format schema to a JSON format schema. Currently, only dicom format is supported. Formats like Nexus and TIFF are planned for the future.
 
+The mapping tool can be imported as a Python package at: https://pypi.org/project/NEPMetadataMapping/1.0.0/
+Supported by Python3-3.8
+
 ## Structuration and components
 
 The mapping tool is composed of multiple, indepently working components. They comprise the functionalities of:
