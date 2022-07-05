@@ -5,8 +5,7 @@ import os
 class MetadataSchemaReader():
 
     def __init__(self, schema, draftDir):
-        #self.schema=schema
-        #self.draftDir=draftDir
+        draftDirFiles=glob.glob(draftDir)
         fileName, fileExtension = os.path.splitext(schema)
         if fileExtension == ".json":
             jsonSchema=open(schema)
@@ -15,17 +14,17 @@ class MetadataSchemaReader():
                 self.definitions=jsonSchema["definitions"]
             except:
                 pass
-            #self.jsonSchemaValidator(jsonSchema, draftDir)
+            self.jsonSchemaValidator(jsonSchema, draftDirFiles)
             self.searchedSchema=self.jsonObjectsearch(jsonSchema)
         else:
             logging.warning("Schema format not supported.")
             
-    def jsonSchemaValidator(self, jsonSchema, draftDir):
+    def jsonSchemaValidator(self, jsonSchema, draftDirFiles):
         #Validation of the file read in is of proper JSON Format, corresponding to the latest draft supported by this application or earlier
-        for i in draftDir:
+        for i in draftDirFiles:    
             j=json.load(open(i))
             try:
-                #validate(instance=jsonSchema, schema=j)
+                validate(instance=jsonSchema, schema=j)
                 logging.info("Schema is valid for draft: %s", str(i))
                 break
             except Exception as e:
