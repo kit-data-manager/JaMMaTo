@@ -33,33 +33,6 @@ class MetadataSchemaReader():
                 logging.warning("Schema is not valid")
                 pass
 
-    def jsonArraySearch(self, property):
-        subProperties=None
-        if "$ref" in property["items"]:
-            if property["items"]["$ref"].startswith("#"):
-                keyword=property["items"]["$ref"].split("/")[-1:][0]
-                subProperties=self.jsonDefinitionSearch(self.definitions[keyword])
-            else:
-                path=property["items"]["$ref"].split("#")[0]
-                print(path)
-        elif "oneOf" in property["items"]:
-            for i in property["items"]["oneOf"]:
-                if "$ref" in i:
-                    if i["$ref"].startswith("#"):
-                        keyword=i["$ref"].split("/")[-1:][0]
-                        subProperties=self.jsonDefinitionSearch(self.definitions[keyword])
-                    else:
-                        path=i["$ref"].split("#")[0]
-                        print(path) 
-        elif property["items"]["type"] == "array":
-            subProperties=[self.jsonArraySearch(property["items"])]
-        elif property["items"]["type"] == "object":
-            subProperties=self.jsonObjectsearch(property["items"])
-        else:
-            subProperties=self.jsonTypeSearch(property["items"]["type"])
-        return subProperties
-
-
     def jsonDefinitionSearch(self, definition):
         properties=None
         if "$ref" in definition:
@@ -80,6 +53,31 @@ class MetadataSchemaReader():
             properties=self.jsonTypeSearch(definition["type"])
         return properties
 
+    def jsonArraySearch(self, property):
+        subProperties=None
+        if "$ref" in property["items"]:
+            if property["items"]["$ref"].startswith("#"):
+                keyword=property["items"]["$ref"].split("/")[-1:][0]
+                subProperties=self.jsonDefinitionSearch(self.definitions[keyword])
+            else:
+                path=property["items"]["$ref"].split("#")[0]
+                print(path)
+        elif "oneOf" in property["items"]:
+            for i in property["items"]["oneOf"]:
+                if "$ref" in i:
+                    if i["$ref"].startswith("#"):
+                        keyword=i["$ref"].split("/")[-1:][0]
+                        subProperties=self.jsonDefinitionSearch(self.definitions[keyword])
+                    else:
+                        path=i["$ref"].split("#")[0]
+        elif property["items"]["type"] == "array":
+            subProperties=[self.jsonArraySearch(property["items"])]
+        elif property["items"]["type"] == "object":
+            subProperties=self.jsonObjectsearch(property["items"])
+        else:
+            subProperties=self.jsonTypeSearch(property["items"]["type"])
+        return subProperties
+
     def jsonObjectsearch(self, property):
         properties={}
         for i in property["properties"].items():
@@ -98,23 +96,28 @@ class MetadataSchemaReader():
                 subProperties=self.jsonObjectsearch(i[1])
                 properties[i[0]]=subProperties
             else:
-                properties[i[0]]=self.jsonTypeSearch(i[1]["type"])
+                if i[0] == "value":
+                    properties[i[0]]=self.jsonTypeSearch(i[1]["type"])
+                elif i[0] == "unit":
+                    properties[i[0]]=i[1]["default"]
+                else:
+                    properties[i[0]]=self.jsonTypeSearch(i[1]["type"])
         return properties
 
-    def jsonTypeSearch(self, property):
-        if property=="integer":
+    def jsonTypeSearch(self, type):
+        if type=="integer":
             return "int"
-        elif property=="string":
+        elif type=="string":
             return "str"
-        elif property=="number":
+        elif type=="number":
            return "float"
-        elif property=="boolean":
+        elif type=="boolean":
            return "bool"
-        elif property=="null":
+        elif type=="null":
             return None
-        elif isinstance(property, list):
+        elif isinstance(type, list):
             multipleTypes=[]
-            for j in property:
+            for j in type:
                 multipleTypes.append(self.jsonTypeSearch(j))
             return tuple(multipleTypes)
         else:
