@@ -4,8 +4,9 @@
 class MapSchema:
 
     #This method parses the objects in the schema structure and calls the proper method to insert the attribute value, based on the attribute type.
-    def fillObject(self, dictionary: dict(), keys: list(), values: list()):
+    def fillObject(self, dictionary: dict(), keys: list(), masterKey: str, values: list()):
         newDict={}
+        
         for i in keys:
             if (type(dictionary[i])==type(str()) or type(dictionary[i])==type(tuple())):
                 try:
@@ -14,16 +15,29 @@ class MapSchema:
                             newDict[i]=y
                         else: pass
                 except(TypeError):
+                    #Could be replace with if masterKey in values...
                     for x, y in values.__dict__.items():
-                        if i==x:
+                        #Special condition, very specific for the MRI schema, might be changed in a later version
+                        if i=="value":
+                            if masterKey==x:
+                                newDict[i]=self.getType(dictionary[i], y)
+                        elif i=="unit":
+                            newDict[i]=dictionary[i]
+                        elif i==x:
                             newDict[i]=self.getType(dictionary[i], y)
                         else: pass
 
             elif type(dictionary[i])==type(dict()):
-                newDict[i]=self.fillObject(dictionary[i], list(dictionary[i].keys()), values)
+                newDict[i]=self.fillObject(dictionary[i], list(dictionary[i].keys()), i, values)
 
             elif type(dictionary[i])==type(list()):
-                filledArray=self.fillArray(dictionary, i, dictionary[i], values)
+                #Special condition, very specific for the MRI schema, might be changed in a later version
+                if i=="value":
+                    dictionary[masterKey] = dictionary.pop(i)
+                    revDict=dict(reversed(list(dictionary.items())))
+                    filledArray=self.fillArray(revDict, masterKey, dictionary[masterKey], values)
+                else:
+                    filledArray=self.fillArray(dictionary, i, dictionary[i], values)
                 if len(filledArray)>0:
                     newDict[i]=filledArray
                 else: pass
@@ -72,7 +86,7 @@ class MapSchema:
                 except: pass
             elif type(i)==type(dict()):
                 try:
-                    newList.append(self.fillObject(i, list(i.keys()), newArrayContent[j]))
+                    newList.append(self.fillObject(i, list(i.keys()), None, newArrayContent[j]))
                 except Exception as e:
                     pass
 
@@ -81,12 +95,12 @@ class MapSchema:
             else: pass
         return newList
 
-    #This method conforms the primitive data types of the attribute values stored in the map and assigns those values to the schema attribute. The correct hirarchial
+    #This method confirms the primitive data types of the attribute values stored in the map and assigns those values to the schema attribute. The correct hirarchial
     #position has been reached through the methods above.
-    def getType(self, type, variable):
-        if type=="int":
+    def getType(self, dataType, variable):
+        if dataType=="int":
             return int(variable)
-        elif type=="float":
+        elif dataType=="float":
             return float(variable)
         else:
             return str(variable)
