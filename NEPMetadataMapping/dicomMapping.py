@@ -1,11 +1,11 @@
 import json
 from jsonschema import validate
-from metadataSchemaReader import MetadataSchemaReader
-from metadataReader import MetadataReader
-from dicomStudyMap import DicomStudyMap
-from dicomSeriesMap import DicomSeriesMap
-from mapSchema import MapSchema
-from excelIngest import ExcelIngest
+from NEPMetadataMapping.metadataSchemaReader import MetadataSchemaReader
+from NEPMetadataMapping.metadataReader import MetadataReader
+from NEPMetadataMapping.dicomStudyMap import DicomStudyMap
+from NEPMetadataMapping.dicomSeriesMap import DicomSeriesMap
+from NEPMetadataMapping.mapSchema import MapSchema
+from NEPMetadataMapping.excelIngest import ExcelIngest
 
 #This class uses all components of the mapping tool functionality for dicom and executes them consecutively in the proper order. 
 class DicomMapping:
