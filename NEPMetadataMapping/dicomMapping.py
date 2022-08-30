@@ -2,8 +2,6 @@ import json
 from jsonschema import validate
 from NEPMetadataMapping.metadataSchemaReader import MetadataSchemaReader
 from NEPMetadataMapping.metadataReader import MetadataReader
-from NEPMetadataMapping.dicomStudyMap import DicomStudyMap
-from NEPMetadataMapping.dicomSeriesMap import DicomSeriesMap
 from NEPMetadataMapping.mapSchema import MapSchema
 from NEPMetadataMapping.excelIngest import ExcelIngest
 
