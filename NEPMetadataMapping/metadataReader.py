@@ -1,5 +1,5 @@
 import os
-from dicomReader import DicomReader
+from NEPMetadataMapping.dicomReader import DicomReader
 import logging
 
 class MetadataReader:
