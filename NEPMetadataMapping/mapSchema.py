@@ -21,10 +21,13 @@ class MapSchema:
                         if i=="value":
                             if masterKey==x:
                                 newDict[i]=self.getType(dictionary[i], y)
+                                break
                         elif i=="unit":
                             newDict[i]=dictionary[i]
+                            break
                         elif i==x:
                             newDict[i]=self.getType(dictionary[i], y)
+                            break
                         else: pass
 
             elif type(dictionary[i])==type(dict()):
@@ -82,7 +85,7 @@ class MapSchema:
                             if jsonObjectProperty==x: newList.append(self.getType(type(i), y))
                             else: pass
                     else:
-                        newList.append(self.getType(type(i), newArrayContent[j]))
+                        newList.append(self.getType(i, newArrayContent[j]))
                 except: pass
             elif type(i)==type(dict()):
                 try:
