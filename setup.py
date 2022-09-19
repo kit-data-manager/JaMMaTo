@@ -2,13 +2,13 @@ from distutils.core import setup
 setup(
   name = 'NEP-Metadata-Mapping-Tool',         # How you named your package folder (MyLib)
   packages = ['NEP-Metadata-Mapping-Tool'],   # Chose the same as "name"
-  version = '1.1.5',      # Start with a small number and increase it with every change you make
+  version = '2.0.1',      # Start with a small number and increase it with every change you make
   license='cc',        # Chose a license from here: https://help.github.com/articles/licensing-a-repository
   description = 'A library for mapping metadata attributes from file format schemas to a json schema document',   # Give a short description about your library
   author = 'Nicolas Blumenroehr',                   # Type in your name
   author_email = 'nicolas.blumenroehr@gmail.com',      # Type in your E-Mail
   url = 'https://github.com/user/nicolasblumenroehr',   # Provide either the link to your github or to your website
-  download_url = 'https://github.com/nicolasblumenroehr/NEP-Metadata-Mapping-Tool/archive/refs/tags/1.1.5.tar.gz',    # I explain this later on
+  download_url = 'https://github.com/nicolasblumenroehr/NEP-Metadata-Mapping-Tool/archive/refs/tags/2.0.1.tar.gz',    # I explain this later on
   keywords = ['Schema','Mapping','DICOM','JSON'],   # Keywords that define your package best
   install_requires=[            # I get to this in a second
           'pydicom',
