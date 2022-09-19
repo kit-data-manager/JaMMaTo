@@ -1,7 +1,7 @@
 from distutils.core import setup
 setup(
-  name = 'NEP-Metadata-Mapping-Tool',         # How you named your package folder (MyLib)
-  packages = ['NEP-Metadata-Mapping-Tool'],   # Chose the same as "name"
+  name = 'NEPMetadataMapping',         # How you named your package folder (MyLib)
+  packages = ['NEPMetadataMapping'],   # Chose the same as "name"
   version = '2.0.1',      # Start with a small number and increase it with every change you make
   license='cc',        # Chose a license from here: https://help.github.com/articles/licensing-a-repository
   description = 'A library for mapping metadata attributes from file format schemas to a json schema document',   # Give a short description about your library
