@@ -1,5 +1,0 @@
-git add --all
-
-git commit -m "update"
-
-git push https://github.com/nicolasblumenroehr/NEP-Metadata-Mapping-Tool.git
