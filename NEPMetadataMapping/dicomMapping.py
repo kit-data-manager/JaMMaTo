@@ -1,9 +1,7 @@
 import json
-from jsonschema import validate
 from metadataSchemaReader import MetadataSchemaReader
 from metadataReader import MetadataReader
 from mapSchema import MapSchema
-from excelIngest import ExcelIngest
 from attributeMapping import AttributeMapping
 import urllib.request
 import logging
@@ -64,9 +62,6 @@ class DicomMapping:
         filledSchema = MapSchema()
         filledSchema = filledSchema.fillObject(
             schema, list(schema.keys()), None, studyMap)
-
-        # Validate if the filled schema instance refers to the schema
-        #validate(instance=filledSchema, schema=jsonSchema)
 
         # The filled schema is then written to a json document and saved.
         with open(mappedMetadata, 'w') as f:
