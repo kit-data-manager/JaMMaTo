@@ -1,7 +1,8 @@
 import sys
 sys.path.append('../NEPMetadataMapping')
-map = sys.argv[1]
 import dicomMapping
+
+map = sys.argv[1]
 
 metadata = sys.argv[2]
 
