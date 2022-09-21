@@ -1,9 +1,4 @@
-import json
 import logging
-import os
-from jsonschema import validate
-import glob
-
 
 class MetadataSchemaReader():
 
