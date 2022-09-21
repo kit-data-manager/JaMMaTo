@@ -1,5 +1,5 @@
 import NEPMetadataMapping
 
-NEPMetadataMapping.DicomMapping(metadata="PATH/dicomFiles.zip",
-                                map='./map.json',
+NEPMetadataMapping.DicomMapping(map='./map.json',
+                                metadata="PATH/dicomFiles.zip",
                                 mappedMetadata="mappedMetadata.json")
