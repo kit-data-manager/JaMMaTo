@@ -102,8 +102,3 @@ class MetadataSchemaReader():
             return tuple(multipleTypes)
         else:
             logging.warning("Type Error")
-
-
-#readSchema=MetadataSchemaReader("/Users/nicoblum/bwSyncShare/VSCode/NEP Mapping Tool/mriSchmemaV2.json", draftDir="/Users/nicoblum/bwSyncShare/NEP/jsonDrafts/*.json")
-# schema=readSchema.searchedSchema
-# print(schema)
