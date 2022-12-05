@@ -1,10 +1,7 @@
-from distutils import extension
 import os
-from dicomReader import DicomReader
+from .dicomReader import DicomReader
 import logging
-import tarfile
 import zipfile
-import pydicom
 
 
 class MetadataReader:
@@ -13,7 +10,7 @@ class MetadataReader:
     # to a folder that contains multiple corresponding files with metadata.
     def __init__(self, metadataDocumentDirectory):
         # Arrays for collected metadata objects in case of multiple dicom files in a folder directory.
-        self.allDicomSeries = []
+        self.all_dicom_series = []
         isFile = os.path.isfile(metadataDocumentDirectory)
         isDirectory = os.path.isdir(metadataDocumentDirectory)
         if isDirectory == True:
@@ -22,18 +19,16 @@ class MetadataReader:
                 self.evaluateFileType(i, fileExtension)
 
         elif isFile == True:
-            fileName, fileExtension = os.path.splitext(
-                metadataDocumentDirectory)
             #filePath = os.path.dirname(metadataDocumentDirectory)
-            match fileExtension:
-                case ".zip":
-                    with zipfile.ZipFile(metadataDocumentDirectory) as dataset:
-                        for i in range(1, len(dataset.filelist)):
-                            with dataset.open(dataset.filelist[i].filename) as file:
-                                datasetFileName, datasetFileExtension = os.path.splitext(
-                                    file.name)
-                                self.evaluateFileType(
-                                    file, datasetFileExtension)
+            # match fileExtension:
+            #    case ".zip":
+            with zipfile.ZipFile(metadataDocumentDirectory) as dataset:
+                for i in range(1, len(dataset.filelist)):
+                    with dataset.open(dataset.filelist[i].filename) as file:
+                        datasetFileName, datasetFileExtension = os.path.splitext(
+                            file.name)
+                        self.evaluateFileType(
+                            file, datasetFileExtension)
 
     def evaluateFileType(self, file, fileExtension):
 
@@ -41,8 +36,8 @@ class MetadataReader:
         if fileExtension == ".dcm":
             try:
                 dicomSeries = DicomReader(file)
-                self.allDicomSeries.append(dicomSeries)
-            except:
+                self.all_dicom_series.append(dicomSeries)
+            except TypeError as e:
                 pass
         else:
             logging.error("File format is not supported.")

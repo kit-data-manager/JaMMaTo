@@ -1,68 +1,127 @@
 import json
-from metadataSchemaReader import MetadataSchemaReader
-from metadataReader import MetadataReader
-from mapSchema import MapSchema
-from attributeMapping import AttributeMapping
+from .metadataSchemaReader import MetadataSchemaReader
+from .metadataReader import MetadataReader
+from .mapMRISchema import Map_MRI_Schema
+from .attributeMapping import AttributeMapping
+from .dicomReader import DicomReader
 import urllib.request
 import logging
-# This class uses all components of the mapping tool functionality for dicom and executes them consecutively in the proper order.
-
+import NEPMetadataMapping.schemasCollector
+import time
 
 class DicomMapping:
 
-    def __init__(self, metadata, map, mappedMetadata='mappedMetadata.json'):
+    def __init__(self, map_json_path: str, metadata_files_location: str, additional_attributes_list: list, mapped_metadata='mapped_metadata1.json') -> None:
+        """Instantiates the class and calls the method to execute all steps for mapping.
 
-        # The first class reads in the schema and the json rafts for validating the schema for versioning.
-        with open(map, 'r') as f:
-            mapJson = json.load(f)
+        Args:
+            map_json (json): A json based map of the attribute assignments for mapping.
+            metadata_files_location (str): The directory where the dicom files of a study are stored.
+            mapped_metadata (str, optional): The resulting json file. Defaults to 'mapped_metadata.json'.
+        """
+
+        with open(map_json_path, 'r') as f:
+            map_dict = json.load(f)
+        self.map_dict=map_dict
+        self.metadata_files_location = metadata_files_location
+        self.additional_attributes_list=additional_attributes_list
+        self.mapped_metadata=mapped_metadata
+        #self.execute_steps(map_dict, metadata_files_location, additional_attributes_list, mapped_metadata)
+
+    def execute_steps(self, map_dict: dict, metadata_files_location: str, additional_attributes_list: list, mapped_metadata: str) -> None:
+        """Executes all steps for mapping a dicom study to a json schema.
+
+        Args:
+            map_dict (dict): The map of the attribute assignments for mapping as a dictionary.
+            metadata_files_location (str): The directory where the dicom files of a study are stored.
+            mapped_metadata (str): The resulting json file.
+        """
+
+        json_schema=self.cache_schemas(map_dict)
+        schema_skeleton = MetadataSchemaReader(json_schema)
+        schema_skeleton = schema_skeleton.json_object_search(schema_skeleton.schema)
+        dicom_object = MetadataReader(metadata_files_location)
+        self.validate_study(dicom_object)
+        dicom_series_list = dicom_object.all_dicom_series
+
+        study_map = AttributeMapping.mapping_from_object(dicom_series_list[0].__dict__, map_dict, "study")
+        series_maps_list = []
+        for series in dicom_series_list:
+            series_map = AttributeMapping.mapping_from_object(series.__dict__, map_dict, "series")
+            for additional_attributes in additional_attributes_list:
+                all_attributes_map_list=self.series_extension(map_dict, additional_attributes, series)
+                kwargs={f"{additional_attributes}":all_attributes_map_list}
+                series_map.updateMap(**kwargs)
+            series_maps_list.append(series_map)
+        study_map.updateMap(series=series_maps_list)
+        
+        map_mri_schema = Map_MRI_Schema(schema_skeleton, list(schema_skeleton.keys()), study_map, None)
+        filled_schema = map_mri_schema.fill_json_object(map_mri_schema.schema_skeleton, map_mri_schema.key_list, map_mri_schema.map, map_mri_schema.main_key)
+        with open(mapped_metadata, 'w') as f:
+            json.dump(filled_schema, f)
+
+    def cache_schemas(self, map_dict: dict) -> dict:
+        """Cache, or set the schema that is referenced by the map json document via the uri key and return it as dictionary.
+
+        Args:
+            map_dict (dict): _description_
+
+        Raises:
+            KeyError: No uri as key provided in the input dictionary.
+
+        Returns:
+            dict: The schema as dictionary.
+        """
         try:
-            with urllib.request.urlopen(mapJson["uri"]) as url:
-                jsonSchema = json.load(url)
-        except TypeError as error:
-            logging.error(error)
-            raise
+            if NEPMetadataMapping.schemasCollector.schemasCollectorInstance.get_uri(map_dict["uri"]):
+                jsonSchema = NEPMetadataMapping.schemasCollector.schemasCollectorInstance.get_schema(map_dict["uri"])
+            else:
+                with urllib.request.urlopen(map_dict["uri"]) as url:
+                    jsonSchema = json.load(url)
+                NEPMetadataMapping.schemasCollector.schemasCollectorInstance.add_schema(map_dict["uri"], jsonSchema)
 
-        readSchema = MetadataSchemaReader(jsonSchema)
+        except KeyError as e:
+            logging.error("Schema not accessible.")
 
-        # This class attribute contains the schema structure in the Python-based environment.
+        return jsonSchema
 
-        schema = readSchema.searchedSchema
-        # The second class that reads in the dicom files, which beling to one MRI series. Takes the directory as argument.
-        document = MetadataReader(metadata)
-        # Check if files are from the same study
+    def validate_study(self, dicom_object: MetadataReader) -> None:
+        """Validate that all dicom files (series) of a study have the same Study Instance UID.
+
+        Args:
+            dicom_object (MetadataReader): The object that contains the dicom metadata attributes.
+
+        Raises:
+            Exception: Strings are not the same.
+        """
         allStudyInstanceUIDs = []
-        for i in document.allDicomSeries:
-            allStudyInstanceUIDs.append(i.studyInstanceUid)
+        for series in dicom_object.all_dicom_series:
+            allStudyInstanceUIDs.append(series.studyInstanceUid)
 
-        if all(i == allStudyInstanceUIDs[0] for i in allStudyInstanceUIDs) == True:
+        if all(series == allStudyInstanceUIDs[0] for series in allStudyInstanceUIDs) == True:
             pass
         else:
-            raise Exception('Files are not from the same study')
+            raise Exception('Files are not from the same study.')
 
-        # This class attribute is a list of all dicom file objects
-        metadata = document.allDicomSeries
+    def series_extension(self, map_dict: dict, map_attribute: str, series: DicomReader) -> list:
+        """Extends the mapped attributes of a series object by an attribute that has a list of objects as values, using the keywords of the provided map.
 
-        # The third class instantiates the map for one MRI study, by taking one arbitrary object class of the list that contains all dicom files.
-        # studyMap=DicomStudyMap(metadata[0])
-        studyMap = AttributeMapping(metadata[0], mapJson, "study")
+        Args:
+            map_dict (dict): Map that contains the attribute assignments for the dicom metadata and the schema.
+            map_attribute (str): The attribute in the map that contains the mapping assignments.
+            series (DicomReader): The series which is extended.
 
-        # The studyMap contains all schema attributes with their values from the MRI study.
-        # The fourth class instantiates the maps for all series within the MRI study, one class instance per dicom file.
-        allSeriesMaps = []
-        for i in metadata:
-            seriesMap = AttributeMapping(i, mapJson, "series")
-            allSeriesMaps.append(seriesMap)
-
-        # This function updates the map for the MRI study, by adding the list containing all series classes.
-        # The studyMap now contains also all series object classes with the schema attributes and their values from each dicom file of a series belonging to the study.
-        studyMap.updateMap(series=allSeriesMaps)
-
-        # The fith class takes the schema structure and the schema attributes from the first hirarchy, and the studyMap class with the attributes and their values. It then fills the schema structure with the attribute values,
-        # according to their position in the schema.
-        filledSchema = MapSchema()
-        filledSchema = filledSchema.fillObject(
-            schema, list(schema.keys()), None, studyMap)
-
-        # The filled schema is then written to a json document and saved.
-        with open(mappedMetadata, 'w') as f:
-            json.dump(filledSchema, f)
+        Returns:
+            list: A list of objects with the mapped attributes.
+        """
+        all_attributes_map_list=[]
+        numer_of_sub_attributes=len(map_dict[map_attribute])
+        number_of_additional_objects=len(series.__dict__[list(map_dict[map_attribute].keys())[0]])
+        
+        for object_number in range(0, number_of_additional_objects):
+            temp_image_attributes={}
+            for attribute_number in range(0, numer_of_sub_attributes):
+                temp_image_attributes[list(map_dict[map_attribute].keys())[attribute_number]]=series.__dict__[list(map_dict[map_attribute].keys())[attribute_number]][object_number]
+            attributes_map = AttributeMapping.mapping_from_object(temp_image_attributes, map_dict, map_attribute)
+            all_attributes_map_list.append(attributes_map)
+        return all_attributes_map_list

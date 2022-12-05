@@ -1,14 +1,17 @@
-import json
-
-
 class AttributeMapping():
 
-    def __init__(self, metadataAttributes, mapJson, mapObject):
+    def __init__(self, attributes):
+        self.__dict__.update(attributes)
 
+    @classmethod
+    def mapping_from_object(cls, metadataAttributes, mapJson, mapObject):
+        temp={}
         for i, j in mapJson[mapObject].items():
-            if i in metadataAttributes.__dict__:
-                temp = {j: metadataAttributes.__dict__[i]}
-                self.__dict__.update(temp)
+            if i in metadataAttributes:
+                temp[j]= metadataAttributes[i]
+            else:
+                pass
+        return cls(temp)
 
-    def updateMap(self, **args):
-        self.__dict__.update(args)
+    def updateMap(self, **kwargs):
+        self.__dict__.update(kwargs)

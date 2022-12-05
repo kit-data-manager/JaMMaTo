@@ -1,3 +1,4 @@
+
 # NFFA-EUROPE PILOT (NEP) Metadata Mapping Tool
 
 This objectoriented mapping tool is based on Python, and is used for mapping metadata from a file format schema to a JSON format schema. Currently, only DICOM format is supported. Formats like Nexus and TIFF are planned for the future.

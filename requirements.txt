@@ -1,0 +1,4 @@
+#Runtime requirements Could also extended with versions, e.g. jsonschema>=1.10
+pydicom
+jsonschema
+openpyxl

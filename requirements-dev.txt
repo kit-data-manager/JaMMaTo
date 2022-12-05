@@ -1,0 +1,25 @@
+#Runtime requirements Use pip install -r requirements-dev.txt
+--requirements requirements.txt
+
+#Testing
+pytest
+codecov
+pytest-cov
+#pre-commit
+pytest-benchmark
+
+# Linting/Tooling
+pylint
+flake8
+mypy
+isort
+black
+pre-commit
+autopep8
+
+#Documentation
+#mkdocs
+#mkdocstrings
+#mkdocstrings[python]
+#mkdocs-material
+#Pygments
