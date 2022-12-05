@@ -1,4 +1,5 @@
 import NEPMetadataMapping
 
-NEPMetadataMapping.DicomMapping(jsonSchema="PATH to schema document", metadata="PATH to folder with files (e.g. dicom)", 
-                                draftDir="PATH to draft(s) for the schema", mappedMetadata="PATH to mapped metadata document", excelSheet="PATH to excel sheet with attribute associations")
+NEPMetadataMapping.DicomMapping(map='./map.json',
+                                metadata="PATH/dicomFiles.zip",
+                                mappedMetadata="mappedMetadata.json")

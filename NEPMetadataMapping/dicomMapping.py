@@ -10,7 +10,7 @@ import NEPMetadataMapping.schemasCollector
 import time
 
 class DicomMapping:
-
+    
     def __init__(self, map_json_path: str, metadata_files_location: str, additional_attributes_list: list, mapped_metadata='mapped_metadata1.json') -> None:
         """Instantiates the class and calls the method to execute all steps for mapping.
 

@@ -1,7 +1,9 @@
 import os
-from .dicomReader import DicomReader
+from dicomReader import DicomReader
 import logging
+import tarfile
 import zipfile
+import pydicom
 
 
 class MetadataReader:
@@ -19,16 +21,18 @@ class MetadataReader:
                 self.evaluateFileType(i, fileExtension)
 
         elif isFile == True:
+            fileName, fileExtension = os.path.splitext(
+                metadataDocumentDirectory)
             #filePath = os.path.dirname(metadataDocumentDirectory)
-            # match fileExtension:
-            #    case ".zip":
-            with zipfile.ZipFile(metadataDocumentDirectory) as dataset:
-                for i in range(1, len(dataset.filelist)):
-                    with dataset.open(dataset.filelist[i].filename) as file:
-                        datasetFileName, datasetFileExtension = os.path.splitext(
-                            file.name)
-                        self.evaluateFileType(
-                            file, datasetFileExtension)
+            match fileExtension:
+                case ".zip":
+                    with zipfile.ZipFile(metadataDocumentDirectory) as dataset:
+                        for i in range(1, len(dataset.filelist)):
+                            with dataset.open(dataset.filelist[i].filename) as file:
+                                datasetFileName, datasetFileExtension = os.path.splitext(
+                                    file.name)
+                                self.evaluateFileType(
+                                    file, datasetFileExtension)
 
     def evaluateFileType(self, file, fileExtension):
 
