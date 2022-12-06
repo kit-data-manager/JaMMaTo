@@ -5,7 +5,7 @@
 pytest
 codecov
 pytest-cov
-#pre-commit
+pre-commit
 pytest-benchmark
 
 # Linting/Tooling
@@ -18,8 +18,8 @@ pre-commit
 autopep8
 
 #Documentation
-#mkdocs
-#mkdocstrings
-#mkdocstrings[python]
-#mkdocs-material
-#Pygments
+mkdocs
+mkdocstrings
+mkdocstrings[python]
+mkdocs-material
+Pygments

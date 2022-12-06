@@ -3,38 +3,46 @@
 
 This objectoriented mapping tool is based on Python, and is used for mapping metadata from a file format schema to a JSON format schema. Currently, only DICOM format is supported. Formats like Nexus and TIFF are planned for the future.
 
-The mapping tool can be imported as a Python package at: https://pypi.org/project/NEPMetadataMapping/1.0.0/
-Supported by Python3-3.8
+```bash
+# Download and Install via pypi (https://pypi.org/project/NEPMetadataMapping/) as Python package.
+pip install NEPMetadataMapping
+```
 
 ## Structure and components
 
-The mapping tool is composed of multiple, independently working components. They comprise the following functionalities:
-  - Transfer of target JSON schema structure into a Python-based dictionary.
-  - Transfer of file format metadata into Python-based objects, referring to the hierarchy of the target schema.
-  - Instantiate Python objects of the received maps, where the target schema attributes are assigned with attributes of the file format schema.
-  - Mapping of the object metadata to the dictionary, according to the assignment in the maps.
+The mapping tool is composed of multiple, independently working modules. Summarized, they comprise the following functionalities:
+  - Querying and transfer of target JSON schema structure into a Python-based dictionary representing the schema skeleton.
+  - Transfer of proprietary file format metadata into Python-based objects.
+  - Mapping of the metadata object attributes to the attributes of the target schema, using a JSON-based metadata map.
+  - Insertion of the mapped metadata attributes in the correct position of the target schema, using the schema skeleton.
 
-## 1. class: MetadataSchemaReader
+## Cache_Schemas class
+This class uses the URI from the JSON metadata map to cache schemas. Uses the following class to deposit and query the schemas:
+  ### Schemas_Collector class
+  This class contains a dictionary of schema resolving URIs as keys and corresponding JSON schemas as dictionaries that can be used to cached already downloaded schemas.
 
-This class takes as argument the target JSON schema the file format metadata should be mapped to, and a folder of JSON drafts. The latter is for validation
-of the schema referring to at least one of the json drafts. After schema validation, the schema is entangled and transfered into a Python dictionary based on the structure of the schema. Currently, the functionality includes identification of the schema properties, considering the property types, or their definition references.
-What is missing yet, is the consideration of enumerations and size restrictions for arrays. 
+## Dicom_Mapping class
+This class imports all modules, relevant for mapping from DICOM files to a JSON schema, in order to execute them in a proper order. The user then simply instantiates this class to provide the directories of the files containing the metadata and the JSON map containing attribute assignments and the target schema. The following classes are all executed via this class.
 
-## 2. class: MetadataReader
+## Schema_Reader class
 
-This class takes as argument the metadata file directory, identifies the format of the files and calls one one the following classes (currently only one):
-   ### 2.1 class: DicomReader
-   This class is used to transfer metadata from a dicom file to Pyhton object of the class. It implements the pyDicom module to transfer the metadata key-value pairs to the object. For a DICOM Study that contains multiple Series, multiple DICOM files will be in the directory. Therefore, a corresponding amount of Python objects will be created for each DICOM file.
+This class searches the target schema structure and produces a schema skeleton as dictionary that contains the schema attributes as keys and their data types as values, i.e. dictionaries and lists for JSON objects and arrays, and primitive data types.
 
-## 3. map classes
+## Metadata_Reader class
 
-For each metadata file and target schema mapping, the assignment of attributes needs to be defined. Currently, this is done by instantiating Python classes, with fixed attribute value assignments using the MetadataReader objects of the files. For each JSON object, one class with the attribute value assignments is pre-defined. In case a JSON schema contains a property, which is a nested array of objects, this implies input of multiple files. In this case, another map per file is created, which contains the assignment of the attribute values. After instantiation of the objects, 
-those maps are connected to the common map. This is planned to be implemented in a more generic approach, where the user can provide the attribute value assignments externally to create the map objects.
+This class identifies the format of the proprietary files and calls one the following classes (currently only one):
 
-## 4. class: MapSchema
+  ### Dicom_Reader class
+  This class is used to transfer metadata from a dicom file to a Pyhton object of the class. It implements the pydicom module to transfer the metadata key-value pairs to the object. For a DICOM Study that contains multiple Series, multiple DICOM files will be in the directory. Therefore, a corresponding amount of Python objects will be created for each DICOM file.
 
-This class takes the Python dictionary of the target schema and the map class of the metadata file, containing the key-value pairs of the metadata. Based on the target schema structure, the assigned values are mapped to the proper schema location, considering the schema hierarchy and data types of the attributes. What is currently missing, is the option to use additionalProperties in the JSON schema, as well as consideration of array length, or array enumaration. The result is a JSON-compatible dictionary that can be exported as a JSON document.
+## Attribute_Mapping class
 
-## 5. class: DicomMapping
+This class uses the JSON map containing the attribute assignments of origin and target schema, to map the values of the metadata file objects from the Metadata_Reader_class to the attributes of the target schema. This results in a new class instance, with attributes of the target schema, containing the values of the origin schema, i.e. files.
 
-This class imports all class components described above, in order to execute them in a proper order for mapping metadata from a DICOM study to a provided metadata JSON schema. The user then simply uses this class to provide the directories of the files containing the metadata and the schema.
+## Map_Schema class
+
+This class uses the schema skeleton from the Schema_Reader class and the class object of the Attribute_Mapping class, to insert the mapped attributes, i.e. the values of the origin schema at the correct position in the target JSON schema. It contains the following class that inherits from this class and introduces specifications for particular use cases:
+
+  ### Map_MRI_Schemas class
+
+  Introduces additional positioning for the MRI schema that contains properties that are divided into values and units attributes.

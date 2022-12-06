@@ -1,7 +1,7 @@
 import pytest
-from NEPMetadataMapping.schemasCollector import SchemasCollector
+from NEPMetadataMapping.schemas_collector import Schemas_Collector
 
-schemasCollectorInstance=SchemasCollector()
+schemasCollectorInstance=Schemas_Collector()
 schemasCollectorInstance.add_schema("uri", {"attribute1": "value1"})
 
 @pytest.mark.parametrize(

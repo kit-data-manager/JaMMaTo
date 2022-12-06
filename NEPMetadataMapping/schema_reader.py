@@ -1,7 +1,7 @@
 import logging
 from typing import Any
 
-class MetadataSchemaReader():
+class Schema_Reader():
 
     def __init__(self, schema: dict) -> None:
         """Instantiates the class that searches the schema structure of the provided dictionary and builds a schema skeleton. When instantiated, the json definitions are first set.

@@ -2,10 +2,8 @@ import pydicom
 import re
 import logging
 from datetime import datetime
-# This class instantiates the class object of a dicom file, which contains the key-value pairs of the fiel metadata.
 
-
-class DicomReader:
+class Dicom_Reader():
 
     def __init__(self, dicom_file: str) -> None:
         """Takes a dicom file as input and converts the file into a Python object using the pydicom module.
@@ -15,23 +13,21 @@ class DicomReader:
         """
         try:
             self.pydicom_file = pydicom.dcmread(dicom_file)
-        except TypeError as e:
-            logging.warning("Error for file: %s %s", dicom_file, e)
-            self.pydicom_file = pydicom.dcmread(dicom_file, force=True)
+        except pydicom.errors.InvalidDicomError as e:
+            logging.error("InvalidDicomError for file: %s %s", dicom_file, e)
+            #self.pydicom_file = pydicom.dcmread(dicom_file, force=True)
+            raise
         except FileNotFoundError as e:
-            logging.warning("No valid Dicom file: %s %s", dicom_file, e)
-            self.pydicom_file=None
-        if self.pydicom_file:
-            self.studyDateTime = None
-            self.sub_dict=self.pydicom_object_search(self.pydicom_file)
-            self.sub_dict.pop("pixelData")
-            self.__dict__.update(self.sub_dict)
-            self.studyDateTime = datetime.strptime(
-                self.studyDateTime, '%Y%m%d %H%M%S').isoformat()
-            self.__dict__.pop("sub_dict")
-            self.__dict__.pop("pydicom_file")
-        else:
-            pass
+            logging.error("FileNotFoundError for file: %s %s", dicom_file, e)
+            raise
+        self.studyDateTime = None
+        self.sub_dict=self.pydicom_object_search(self.pydicom_file)
+        self.sub_dict.pop("pixelData")
+        self.__dict__.update(self.sub_dict)
+        self.studyDateTime = datetime.strptime(
+            self.studyDateTime, '%Y%m%d %H%M%S').isoformat()
+        self.__dict__.pop("sub_dict")
+        self.__dict__.pop("pydicom_file")
     def pydicom_object_search(self, dataset: pydicom) -> dict:
         """Takes as input a pydicom object and searches its attributes. Puts the attributes which contain a string as value, or a list of values into a dictionary.
 
@@ -112,6 +108,3 @@ class DicomReader:
 
     def validate_type(self, attribute: str, instance: object):
         return isinstance(attribute, instance)
-
-#test=DicomReader("/Users/nicoblum/bwSyncShare/NEP/DicomTestStudy/Series/series7.dcm")
-#print(test.__dict__)

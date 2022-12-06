@@ -6,4 +6,6 @@ coverage:
 ignore:
   - "tests/*"
   - "benchmarks/*"
+  - "example/*"
+  - "schemas/*"
   - "docs/*"

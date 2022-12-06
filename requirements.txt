@@ -1,4 +1,8 @@
-#Runtime requirements Could also extended with versions, e.g. jsonschema>=1.10
+#Runtime requirements Could also specify versions, e.g. jsonschema>=1.10
 pydicom
 jsonschema
-openpyxl
+logging
+urllib
+datetime
+typing
+zipfile

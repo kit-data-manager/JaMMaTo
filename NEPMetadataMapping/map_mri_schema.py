@@ -1,23 +1,40 @@
-# This class takes the schema structure as dictionary and the metadata map to assign the metadata values to the schema attributes
-# at the proper hirarchy level.
-from .mapSchema import MapSchema
+from .map_schema import Map_Schema
 
 
-class Map_MRI_Schema(MapSchema):
+class Map_MRI_Schema(Map_Schema):
 
     def __init__(self, schema_skeleton: dict, key_list: list, map: object, main_key: str):
+        """Takes the schema structure as dictionary and the metadata map to assign the metadata values to the schema attributes
+        at the proper hirarchy level. Inherits from the Map_Schema class.
+
+        Args:
+            schema_skeleton (dict): The dictionary containing the skeleton of the target schema.
+            key_list (list): The list that contains all keys of the schema skeleton at the first hierarchy level.
+            map (object): The object that represents the mapped attributes.
+            main_key (str): The string that represents the attribute of the latest JSON property for a JSON object.
+        """
 
         super().__init__(schema_skeleton, key_list, map)
         self.main_key=main_key
 
     # This method parses the objects in the schema structure and calls the proper method to insert the attribute value, based on the attribute type. Has additional functionality for value and unit attributes from the MRI schema
-    def fill_json_object(self, json_object: dict, key_list: list, attributes_object: list, main_key: str=None):  # List or Dict?
+    def fill_json_object(self, json_object: dict, key_list: list, attributes_object: list, main_key: str=None):
+        """Takes the JSON object of the schema structure, the key list of the current schema hierarchy level and the attributes object. 
+        Calls the proper method to insert the attribute value, based on the attribute type. Has in addition a functionality for inserting
+        the value of the main key string of an JSON object containing value and unit properties.
+
+        Args:
+            json_object (dict): The dictionary containing the skeleton of the target schema.
+            key_list (list): The list that contains all keys of the schema skeleton at the first hierarchy level.
+            attributes_object (object): The object that contains the mapped attributes.
+            main_key (str): The string that represents the attribute of the latest JSON property for a JSON object.
+
+        Returns:
+            dict: The dictionary that represents the filled JSON object.
+        """
+
         new_dict = {}
-
-        # evaluate the types of the values of the keys (i.e. properties of JSON schema)
         for key in key_list:
-
-            # key has a string as value
             if (type(json_object[key]) == type(str()) or type(json_object[key]) == type(tuple())):
 
                 if key in attributes_object.__dict__.keys():
@@ -29,15 +46,12 @@ class Map_MRI_Schema(MapSchema):
                 else:
                     pass
 
-            # key has an object as value
             elif type(json_object[key]) == type(dict()):
                 sub_dict = self.fill_json_object(json_object[key], list(json_object[key].keys()), attributes_object, key)
                 if len(sub_dict) > 0:
                     new_dict[key] = sub_dict
 
-            # key has an array as value
             elif type(json_object[key]) == type(list()):
-                # Special condition, very specific for the MRI schema
                 if key == "value":
                     dictionary_copy = {}
                     dictionary_copy[main_key] = json_object.copy().pop(key)

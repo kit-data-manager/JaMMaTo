@@ -3,7 +3,7 @@ from unittest.mock import Mock
 import pydicom
 import os
 import zipfile
-from NEPMetadataMapping.dicomReader import DicomReader
+from NEPMetadataMapping.dicom_reader import Dicom_Reader
 
 class IterMixin(object):
     def __iter__(self):
@@ -49,15 +49,15 @@ def test_dicom_reader(monkeypatch: pytest.MonkeyPatch) -> None:
 
     return_validate_type=[True, False, True, False, False, False, False, False, True, False, False]
     validate_type_mock=Mock(side_effect=return_validate_type)
-    monkeypatch.setattr(DicomReader, "validate_type", validate_type_mock)
+    monkeypatch.setattr(Dicom_Reader, "validate_type", validate_type_mock)
 
     return_name_standardization=["standardizedName","studyDate", "studyTime", "standardizedName", "standardizedName"]
     name_standardization_mock=Mock(side_effect=return_name_standardization)
-    monkeypatch.setattr(DicomReader, "name_standardization", name_standardization_mock)
+    monkeypatch.setattr(Dicom_Reader, "name_standardization", name_standardization_mock)
 
     return_merge_dict_keys=[{"pixelData": "val1"}, {"pixelData": ["val1", "val2"]}]
     merge_dict_keys_mock=Mock(side_effect=return_merge_dict_keys)
-    monkeypatch.setattr(DicomReader, "merge_dict_keys", merge_dict_keys_mock)
+    monkeypatch.setattr(Dicom_Reader, "merge_dict_keys", merge_dict_keys_mock)
 
 @pytest.fixture
 def test_metadata_reader_isdir(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -77,9 +77,9 @@ def test_metadata_reader_isdir(monkeypatch: pytest.MonkeyPatch) -> None:
     splittext_mock=Mock(side_effect=return_splittext)
     monkeypatch.setattr(os.path, "splitext", splittext_mock)
 
-    return_dicomReader=[None]
-    dicomReader_mock=Mock(side_effect=return_dicomReader)
-    monkeypatch.setattr(DicomReader, "__init__", dicomReader_mock)
+    return_Dicom_Reader=[None]
+    Dicom_Reader_mock=Mock(side_effect=return_Dicom_Reader)
+    monkeypatch.setattr(Dicom_Reader, "__init__", Dicom_Reader_mock)
 
 class Monk_Zipfile_name(IterMixin):
 
@@ -119,16 +119,14 @@ def test_metadata_reader_isfile(monkeypatch: pytest.MonkeyPatch) -> None:
     splittext_mock=Mock(side_effect=return_splittext)
     monkeypatch.setattr(os.path, "splitext", splittext_mock)
 
-    return_dicomReader=[None]
-    dicomReader_mock=Mock(side_effect=return_dicomReader)
-    monkeypatch.setattr(DicomReader, "__init__", dicomReader_mock)
+    return_Dicom_Reader=[None]
+    Dicom_Reader_mock=Mock(side_effect=return_Dicom_Reader)
+    monkeypatch.setattr(Dicom_Reader, "__init__", Dicom_Reader_mock)
     
     def mock_zipfile(file):
         zipfile=Monk_Zipfile()
         return zipfile
 
-    #return_zipfile=[None]
-    #zipfile_mock=Mock(side_effect=return_zipfile)
     monkeypatch.setattr(zipfile, "ZipFile", mock_zipfile)
 
     return_open=["dummy_file"]

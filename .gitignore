@@ -6,11 +6,13 @@
 ################################
 ########### FOLDERS ############
 ################################
-#build/
-#html/
+build/
+html/
 .benchmarks/
 reports/
-#lectures/
+schemas/
+benchmarks/
+NEPMetadataMapping/performance
 
 ################################
 ########### PYTHON #############
