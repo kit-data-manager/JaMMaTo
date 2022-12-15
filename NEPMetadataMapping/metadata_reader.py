@@ -31,7 +31,10 @@ class Metadata_Reader():
                             file.name)
                         self.evaluate_file_type(
                             file, dataset_file_extension)
-
+        else:
+            logging.error("No valid metadata file path.")
+            raise FileNotFoundError("No valid metadata file path.")
+            
     def evaluate_file_type(self, file: str, file_extension: str) -> None:
         """Takes the file path and the file extension and evaluates their type in order to call the corresponding class for metadata 
         extraction.

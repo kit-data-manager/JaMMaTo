@@ -16,13 +16,13 @@ The mapping tool is composed of multiple, independently working modules. Summari
   - Mapping of the metadata object attributes to the attributes of the target schema, using a JSON-based metadata map.
   - Insertion of the mapped metadata attributes in the correct position of the target schema, using the schema skeleton.
 
+## Dicom_Mapping class
+This class imports all modules, relevant for mapping from DICOM files to a JSON schema, in order to execute them in a proper order. The user then simply instantiates this class to provide the directories of the files containing the metadata and the JSON map containing attribute assignments and the target schema. The following classes are all executed via this class.
+
 ## Cache_Schemas class
 This class uses the URI from the JSON metadata map to cache schemas. Uses the following class to deposit and query the schemas:
   ### Schemas_Collector class
   This class contains a dictionary of schema resolving URIs as keys and corresponding JSON schemas as dictionaries that can be used to cached already downloaded schemas.
-
-## Dicom_Mapping class
-This class imports all modules, relevant for mapping from DICOM files to a JSON schema, in order to execute them in a proper order. The user then simply instantiates this class to provide the directories of the files containing the metadata and the JSON map containing attribute assignments and the target schema. The following classes are all executed via this class.
 
 ## Schema_Reader class
 

@@ -8,7 +8,7 @@ from .cache_schemas import Cache_Schemas
 
 class Dicom_Mapping():
     
-    def __init__(self, map_json_path: str, metadata_files_location: str, additional_attributes_list: list, mapped_metadata: str='mapped_metadata.json') -> None:
+    def __init__(self, map_json_path: str, metadata_files_location: str, mapped_metadata: str='mapped_metadata.json') -> None:
         """Instantiates the class, loads the map dictionary from JSON, instantiates all attributes to the object and executes the steps for mapping.
 
         Args:
@@ -21,11 +21,10 @@ class Dicom_Mapping():
             map_dict = json.load(f)
         self.map_dict=map_dict
         self.metadata_files_location = metadata_files_location
-        self.additional_attributes_list=additional_attributes_list
         self.mapped_metadata=mapped_metadata
-        self.execute_steps(map_dict, metadata_files_location, additional_attributes_list, mapped_metadata)
+        self.execute_steps(map_dict, metadata_files_location, mapped_metadata)
 
-    def execute_steps(self, map_dict: dict, metadata_files_location: str, additional_attributes_list: list, mapped_metadata: str) -> None:
+    def execute_steps(self, map_dict: dict, metadata_files_location: str, mapped_metadata: str) -> None:
         """Executes all steps for mapping a dicom study to a json schema.
 
         Args:
@@ -45,10 +44,9 @@ class Dicom_Mapping():
         series_maps_list = []
         for series in dicom_series_list:
             series_map = Attribute_Mapping.mapping_from_object(series.__dict__, map_dict, "series")
-            for additional_attributes in additional_attributes_list:
-                all_attributes_map_list=self.series_extension(map_dict, additional_attributes, series)
-                kwargs={f"{additional_attributes}":all_attributes_map_list}
-                series_map.update_map(**kwargs)
+            all_attributes_map_list=self.series_extension(map_dict, "perImage", series)
+            kwargs={"perImage":all_attributes_map_list}
+            series_map.update_map(**kwargs)
             series_maps_list.append(series_map)
         study_map.update_map(series=series_maps_list)
         
@@ -98,4 +96,3 @@ class Dicom_Mapping():
             all_attributes_map_list.append(attributes_map)
         return all_attributes_map_list
 
-Dicom_Mapping("example/map.json", "/Users/nicoblum/bwSyncShare/NEP/DicomTestStudy/Series/small/Archiv.zip", ["perImage"])

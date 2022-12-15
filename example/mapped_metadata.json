@@ -1,0 +1,639 @@
+{
+  "study": {
+    "studyID": "1.2.840.10008.5.1.4.1.1.4.1",
+    "studyTitle": "7 samples\nCuSO4 0 - 100 mM",
+    "studyDateTime": "2021-10-15T13:48:31",
+    "program": "['Acquisition PV-360.3.1', 'ParaVision 360.3.1']",
+    "user": {
+      "affiliation": {
+        "institutionName": "Karlsruher Institut fuer Technologie"
+      }
+    },
+    "sample": {
+      "sampleName": "Phantom^^^^",
+      "sampleWeight": { "value": 0.001, "unit": "kg" },
+      "measurementConditions": { "value": 15.2737566983, "unit": "T" }
+    },
+    "instrument": {
+      "instrumentID": "425590",
+      "instrumentManufacturer": {
+        "manufacturerName": "Bruker BioSpin MRI GmbH",
+        "modelName": "Biospec 152/11"
+      }
+    },
+    "series": [
+      {
+        "seriesTitle": "FLASH",
+        "sequenceProtocol": {
+          "effectiveEchoTime": { "value": 200.0, "unit": "ms" },
+          "repetitionTime": { "value": 5000.0, "unit": "ms" },
+          "flipAngle": { "value": 30.0, "unit": "\u00b0" }
+        },
+        "images": {
+          "allImages": {
+            "numberOfImages": "10",
+            "pixelSpacing": { "value": [0.1, 0.1], "unit": "mm" },
+            "sliceThickness": { "value": 0.1, "unit": "mm" },
+            "imageSize": { "rows": 300, "columns": 300 },
+            "pixelRange": {
+              "pixelBandwidth": { "value": 166.666666667, "unit": "Hz" },
+              "smallestImagePixelValue": 95,
+              "largestImagePixelValue": 32766,
+              "pixelRepresentation": 1
+            }
+          },
+          "perImage": [
+            { "imageNumber": 1, "sampleImagePosition": [-15.0, -15.0, -0.35] },
+            { "imageNumber": 2, "sampleImagePosition": [-15.0, -15.0, -0.25] },
+            { "imageNumber": 3, "sampleImagePosition": [-15.0, -15.0, -0.15] },
+            { "imageNumber": 4, "sampleImagePosition": [-15.0, -15.0, -0.05] },
+            { "imageNumber": 5, "sampleImagePosition": [-15.0, -15.0, 0.05] },
+            { "imageNumber": 6, "sampleImagePosition": [-15.0, -15.0, 0.15] },
+            { "imageNumber": 7, "sampleImagePosition": [-15.0, -15.0, 0.25] },
+            { "imageNumber": 8, "sampleImagePosition": [-15.0, -15.0, 0.35] },
+            { "imageNumber": 9, "sampleImagePosition": [-15.0, -15.0, 0.45] },
+            { "imageNumber": 10, "sampleImagePosition": [-15.0, -15.0, 0.55] }
+          ]
+        }
+      },
+      {
+        "seriesTitle": "FLASH",
+        "sequenceProtocol": {
+          "effectiveEchoTime": { "value": 5.0085095372958, "unit": "ms" },
+          "repetitionTime": { "value": 110.728062719, "unit": "ms" },
+          "flipAngle": { "value": 30.0, "unit": "\u00b0" }
+        },
+        "images": {
+          "allImages": {
+            "numberOfImages": "10",
+            "pixelSpacing": { "value": [0.1, 0.1], "unit": "mm" },
+            "sliceThickness": { "value": 0.1, "unit": "mm" },
+            "imageSize": { "rows": 300, "columns": 300 },
+            "pixelRange": {
+              "pixelBandwidth": { "value": 166.666666667, "unit": "Hz" },
+              "smallestImagePixelValue": 19,
+              "largestImagePixelValue": 32766,
+              "pixelRepresentation": 1
+            }
+          },
+          "perImage": [
+            { "imageNumber": 1, "sampleImagePosition": [-15.0, -15.0, -0.35] },
+            { "imageNumber": 2, "sampleImagePosition": [-15.0, -15.0, -0.25] },
+            { "imageNumber": 3, "sampleImagePosition": [-15.0, -15.0, -0.15] },
+            { "imageNumber": 4, "sampleImagePosition": [-15.0, -15.0, -0.05] },
+            { "imageNumber": 5, "sampleImagePosition": [-15.0, -15.0, 0.05] },
+            { "imageNumber": 6, "sampleImagePosition": [-15.0, -15.0, 0.15] },
+            { "imageNumber": 7, "sampleImagePosition": [-15.0, -15.0, 0.25] },
+            { "imageNumber": 8, "sampleImagePosition": [-15.0, -15.0, 0.35] },
+            { "imageNumber": 9, "sampleImagePosition": [-15.0, -15.0, 0.45] },
+            { "imageNumber": 10, "sampleImagePosition": [-15.0, -15.0, 0.55] }
+          ]
+        }
+      },
+      {
+        "seriesTitle": "FLASH",
+        "sequenceProtocol": {
+          "effectiveEchoTime": { "value": 400.0, "unit": "ms" },
+          "repetitionTime": { "value": 5000.0, "unit": "ms" },
+          "flipAngle": { "value": 30.0, "unit": "\u00b0" }
+        },
+        "images": {
+          "allImages": {
+            "numberOfImages": "10",
+            "pixelSpacing": { "value": [0.1, 0.1], "unit": "mm" },
+            "sliceThickness": { "value": 0.1, "unit": "mm" },
+            "imageSize": { "rows": 300, "columns": 300 },
+            "pixelRange": {
+              "pixelBandwidth": { "value": 166.666666667, "unit": "Hz" },
+              "smallestImagePixelValue": 202,
+              "largestImagePixelValue": 32766,
+              "pixelRepresentation": 1
+            }
+          },
+          "perImage": [
+            { "imageNumber": 1, "sampleImagePosition": [-15.0, -15.0, -0.35] },
+            { "imageNumber": 2, "sampleImagePosition": [-15.0, -15.0, -0.25] },
+            { "imageNumber": 3, "sampleImagePosition": [-15.0, -15.0, -0.15] },
+            { "imageNumber": 4, "sampleImagePosition": [-15.0, -15.0, -0.05] },
+            { "imageNumber": 5, "sampleImagePosition": [-15.0, -15.0, 0.05] },
+            { "imageNumber": 6, "sampleImagePosition": [-15.0, -15.0, 0.15] },
+            { "imageNumber": 7, "sampleImagePosition": [-15.0, -15.0, 0.25] },
+            { "imageNumber": 8, "sampleImagePosition": [-15.0, -15.0, 0.35] },
+            { "imageNumber": 9, "sampleImagePosition": [-15.0, -15.0, 0.45] },
+            { "imageNumber": 10, "sampleImagePosition": [-15.0, -15.0, 0.55] }
+          ]
+        }
+      },
+      {
+        "seriesTitle": "FLASH",
+        "sequenceProtocol": {
+          "effectiveEchoTime": { "value": 300.0, "unit": "ms" },
+          "repetitionTime": { "value": 5000.0, "unit": "ms" },
+          "flipAngle": { "value": 30.0, "unit": "\u00b0" }
+        },
+        "images": {
+          "allImages": {
+            "numberOfImages": "10",
+            "pixelSpacing": { "value": [0.1, 0.1], "unit": "mm" },
+            "sliceThickness": { "value": 0.1, "unit": "mm" },
+            "imageSize": { "rows": 300, "columns": 300 },
+            "pixelRange": {
+              "pixelBandwidth": { "value": 166.666666667, "unit": "Hz" },
+              "smallestImagePixelValue": 24,
+              "largestImagePixelValue": 32766,
+              "pixelRepresentation": 1
+            }
+          },
+          "perImage": [
+            { "imageNumber": 1, "sampleImagePosition": [-15.0, -15.0, -0.35] },
+            { "imageNumber": 2, "sampleImagePosition": [-15.0, -15.0, -0.25] },
+            { "imageNumber": 3, "sampleImagePosition": [-15.0, -15.0, -0.15] },
+            { "imageNumber": 4, "sampleImagePosition": [-15.0, -15.0, -0.05] },
+            { "imageNumber": 5, "sampleImagePosition": [-15.0, -15.0, 0.05] },
+            { "imageNumber": 6, "sampleImagePosition": [-15.0, -15.0, 0.15] },
+            { "imageNumber": 7, "sampleImagePosition": [-15.0, -15.0, 0.25] },
+            { "imageNumber": 8, "sampleImagePosition": [-15.0, -15.0, 0.35] },
+            { "imageNumber": 9, "sampleImagePosition": [-15.0, -15.0, 0.45] },
+            { "imageNumber": 10, "sampleImagePosition": [-15.0, -15.0, 0.55] }
+          ]
+        }
+      },
+      {
+        "seriesTitle": "FLASH",
+        "sequenceProtocol": {
+          "effectiveEchoTime": { "value": 5.0085095372958, "unit": "ms" },
+          "repetitionTime": { "value": 110.728062719, "unit": "ms" },
+          "flipAngle": { "value": 30.0, "unit": "\u00b0" }
+        },
+        "images": {
+          "allImages": {
+            "numberOfImages": "10",
+            "pixelSpacing": { "value": [0.1, 0.1], "unit": "mm" },
+            "sliceThickness": { "value": 0.1, "unit": "mm" },
+            "imageSize": { "rows": 300, "columns": 300 },
+            "pixelRange": {
+              "pixelBandwidth": { "value": 166.666666667, "unit": "Hz" },
+              "smallestImagePixelValue": 34,
+              "largestImagePixelValue": 32766,
+              "pixelRepresentation": 1
+            }
+          },
+          "perImage": [
+            { "imageNumber": 1, "sampleImagePosition": [-15.0, -15.0, -0.35] },
+            { "imageNumber": 2, "sampleImagePosition": [-15.0, -15.0, -0.25] },
+            { "imageNumber": 3, "sampleImagePosition": [-15.0, -15.0, -0.15] },
+            { "imageNumber": 4, "sampleImagePosition": [-15.0, -15.0, -0.05] },
+            { "imageNumber": 5, "sampleImagePosition": [-15.0, -15.0, 0.05] },
+            { "imageNumber": 6, "sampleImagePosition": [-15.0, -15.0, 0.15] },
+            { "imageNumber": 7, "sampleImagePosition": [-15.0, -15.0, 0.25] },
+            { "imageNumber": 8, "sampleImagePosition": [-15.0, -15.0, 0.35] },
+            { "imageNumber": 9, "sampleImagePosition": [-15.0, -15.0, 0.45] },
+            { "imageNumber": 10, "sampleImagePosition": [-15.0, -15.0, 0.55] }
+          ]
+        }
+      },
+      {
+        "seriesTitle": "FLASH",
+        "sequenceProtocol": {
+          "effectiveEchoTime": { "value": 5.0085095372958, "unit": "ms" },
+          "repetitionTime": { "value": 5000.0, "unit": "ms" },
+          "flipAngle": { "value": 30.0, "unit": "\u00b0" }
+        },
+        "images": {
+          "allImages": {
+            "numberOfImages": "10",
+            "pixelSpacing": { "value": [0.1, 0.1], "unit": "mm" },
+            "sliceThickness": { "value": 0.1, "unit": "mm" },
+            "imageSize": { "rows": 300, "columns": 300 },
+            "pixelRange": {
+              "pixelBandwidth": { "value": 166.666666667, "unit": "Hz" },
+              "smallestImagePixelValue": 38,
+              "largestImagePixelValue": 32766,
+              "pixelRepresentation": 1
+            }
+          },
+          "perImage": [
+            { "imageNumber": 1, "sampleImagePosition": [-15.0, -15.0, -0.35] },
+            { "imageNumber": 2, "sampleImagePosition": [-15.0, -15.0, -0.25] },
+            { "imageNumber": 3, "sampleImagePosition": [-15.0, -15.0, -0.15] },
+            { "imageNumber": 4, "sampleImagePosition": [-15.0, -15.0, -0.05] },
+            { "imageNumber": 5, "sampleImagePosition": [-15.0, -15.0, 0.05] },
+            { "imageNumber": 6, "sampleImagePosition": [-15.0, -15.0, 0.15] },
+            { "imageNumber": 7, "sampleImagePosition": [-15.0, -15.0, 0.25] },
+            { "imageNumber": 8, "sampleImagePosition": [-15.0, -15.0, 0.35] },
+            { "imageNumber": 9, "sampleImagePosition": [-15.0, -15.0, 0.45] },
+            { "imageNumber": 10, "sampleImagePosition": [-15.0, -15.0, 0.55] }
+          ]
+        }
+      },
+      {
+        "seriesTitle": "FLASH",
+        "sequenceProtocol": {
+          "effectiveEchoTime": { "value": 5.0085095372958, "unit": "ms" },
+          "repetitionTime": { "value": 1000.0, "unit": "ms" },
+          "flipAngle": { "value": 30.0, "unit": "\u00b0" }
+        },
+        "images": {
+          "allImages": {
+            "numberOfImages": "10",
+            "pixelSpacing": { "value": [0.1, 0.1], "unit": "mm" },
+            "sliceThickness": { "value": 0.1, "unit": "mm" },
+            "imageSize": { "rows": 300, "columns": 300 },
+            "pixelRange": {
+              "pixelBandwidth": { "value": 166.666666667, "unit": "Hz" },
+              "smallestImagePixelValue": 31,
+              "largestImagePixelValue": 32766,
+              "pixelRepresentation": 1
+            }
+          },
+          "perImage": [
+            { "imageNumber": 1, "sampleImagePosition": [-15.0, -15.0, -0.35] },
+            { "imageNumber": 2, "sampleImagePosition": [-15.0, -15.0, -0.25] },
+            { "imageNumber": 3, "sampleImagePosition": [-15.0, -15.0, -0.15] },
+            { "imageNumber": 4, "sampleImagePosition": [-15.0, -15.0, -0.05] },
+            { "imageNumber": 5, "sampleImagePosition": [-15.0, -15.0, 0.05] },
+            { "imageNumber": 6, "sampleImagePosition": [-15.0, -15.0, 0.15] },
+            { "imageNumber": 7, "sampleImagePosition": [-15.0, -15.0, 0.25] },
+            { "imageNumber": 8, "sampleImagePosition": [-15.0, -15.0, 0.35] },
+            { "imageNumber": 9, "sampleImagePosition": [-15.0, -15.0, 0.45] },
+            { "imageNumber": 10, "sampleImagePosition": [-15.0, -15.0, 0.55] }
+          ]
+        }
+      },
+      {
+        "seriesTitle": "FLASH",
+        "sequenceProtocol": {
+          "effectiveEchoTime": { "value": 5.0085095372958, "unit": "ms" },
+          "repetitionTime": { "value": 300.0, "unit": "ms" },
+          "flipAngle": { "value": 30.0, "unit": "\u00b0" }
+        },
+        "images": {
+          "allImages": {
+            "numberOfImages": "10",
+            "pixelSpacing": { "value": [0.1, 0.1], "unit": "mm" },
+            "sliceThickness": { "value": 0.1, "unit": "mm" },
+            "imageSize": { "rows": 300, "columns": 300 },
+            "pixelRange": {
+              "pixelBandwidth": { "value": 166.666666667, "unit": "Hz" },
+              "smallestImagePixelValue": 34,
+              "largestImagePixelValue": 32766,
+              "pixelRepresentation": 1
+            }
+          },
+          "perImage": [
+            { "imageNumber": 1, "sampleImagePosition": [-15.0, -15.0, -0.35] },
+            { "imageNumber": 2, "sampleImagePosition": [-15.0, -15.0, -0.25] },
+            { "imageNumber": 3, "sampleImagePosition": [-15.0, -15.0, -0.15] },
+            { "imageNumber": 4, "sampleImagePosition": [-15.0, -15.0, -0.05] },
+            { "imageNumber": 5, "sampleImagePosition": [-15.0, -15.0, 0.05] },
+            { "imageNumber": 6, "sampleImagePosition": [-15.0, -15.0, 0.15] },
+            { "imageNumber": 7, "sampleImagePosition": [-15.0, -15.0, 0.25] },
+            { "imageNumber": 8, "sampleImagePosition": [-15.0, -15.0, 0.35] },
+            { "imageNumber": 9, "sampleImagePosition": [-15.0, -15.0, 0.45] },
+            { "imageNumber": 10, "sampleImagePosition": [-15.0, -15.0, 0.55] }
+          ]
+        }
+      },
+      {
+        "seriesTitle": "FLASH",
+        "sequenceProtocol": {
+          "effectiveEchoTime": { "value": 25.0, "unit": "ms" },
+          "repetitionTime": { "value": 5000.0, "unit": "ms" },
+          "flipAngle": { "value": 30.0, "unit": "\u00b0" }
+        },
+        "images": {
+          "allImages": {
+            "numberOfImages": "10",
+            "pixelSpacing": { "value": [0.1, 0.1], "unit": "mm" },
+            "sliceThickness": { "value": 0.1, "unit": "mm" },
+            "imageSize": { "rows": 300, "columns": 300 },
+            "pixelRange": {
+              "pixelBandwidth": { "value": 166.666666667, "unit": "Hz" },
+              "smallestImagePixelValue": 34,
+              "largestImagePixelValue": 32766,
+              "pixelRepresentation": 1
+            }
+          },
+          "perImage": [
+            { "imageNumber": 1, "sampleImagePosition": [-15.0, -15.0, -0.35] },
+            { "imageNumber": 2, "sampleImagePosition": [-15.0, -15.0, -0.25] },
+            { "imageNumber": 3, "sampleImagePosition": [-15.0, -15.0, -0.15] },
+            { "imageNumber": 4, "sampleImagePosition": [-15.0, -15.0, -0.05] },
+            { "imageNumber": 5, "sampleImagePosition": [-15.0, -15.0, 0.05] },
+            { "imageNumber": 6, "sampleImagePosition": [-15.0, -15.0, 0.15] },
+            { "imageNumber": 7, "sampleImagePosition": [-15.0, -15.0, 0.25] },
+            { "imageNumber": 8, "sampleImagePosition": [-15.0, -15.0, 0.35] },
+            { "imageNumber": 9, "sampleImagePosition": [-15.0, -15.0, 0.45] },
+            { "imageNumber": 10, "sampleImagePosition": [-15.0, -15.0, 0.55] }
+          ]
+        }
+      },
+      {
+        "seriesTitle": "FLASH",
+        "sequenceProtocol": {
+          "effectiveEchoTime": { "value": 10.0, "unit": "ms" },
+          "repetitionTime": { "value": 5000.0, "unit": "ms" },
+          "flipAngle": { "value": 30.0, "unit": "\u00b0" }
+        },
+        "images": {
+          "allImages": {
+            "numberOfImages": "10",
+            "pixelSpacing": { "value": [0.1, 0.1], "unit": "mm" },
+            "sliceThickness": { "value": 0.1, "unit": "mm" },
+            "imageSize": { "rows": 300, "columns": 300 },
+            "pixelRange": {
+              "pixelBandwidth": { "value": 166.666666667, "unit": "Hz" },
+              "smallestImagePixelValue": 39,
+              "largestImagePixelValue": 32766,
+              "pixelRepresentation": 1
+            }
+          },
+          "perImage": [
+            { "imageNumber": 1, "sampleImagePosition": [-15.0, -15.0, -0.35] },
+            { "imageNumber": 2, "sampleImagePosition": [-15.0, -15.0, -0.25] },
+            { "imageNumber": 3, "sampleImagePosition": [-15.0, -15.0, -0.15] },
+            { "imageNumber": 4, "sampleImagePosition": [-15.0, -15.0, -0.05] },
+            { "imageNumber": 5, "sampleImagePosition": [-15.0, -15.0, 0.05] },
+            { "imageNumber": 6, "sampleImagePosition": [-15.0, -15.0, 0.15] },
+            { "imageNumber": 7, "sampleImagePosition": [-15.0, -15.0, 0.25] },
+            { "imageNumber": 8, "sampleImagePosition": [-15.0, -15.0, 0.35] },
+            { "imageNumber": 9, "sampleImagePosition": [-15.0, -15.0, 0.45] },
+            { "imageNumber": 10, "sampleImagePosition": [-15.0, -15.0, 0.55] }
+          ]
+        }
+      },
+      {
+        "seriesTitle": "FLASH",
+        "sequenceProtocol": {
+          "effectiveEchoTime": { "value": 5.0085095372958, "unit": "ms" },
+          "repetitionTime": { "value": 200.0, "unit": "ms" },
+          "flipAngle": { "value": 30.0, "unit": "\u00b0" }
+        },
+        "images": {
+          "allImages": {
+            "numberOfImages": "10",
+            "pixelSpacing": { "value": [0.1, 0.1], "unit": "mm" },
+            "sliceThickness": { "value": 0.1, "unit": "mm" },
+            "imageSize": { "rows": 300, "columns": 300 },
+            "pixelRange": {
+              "pixelBandwidth": { "value": 166.666666667, "unit": "Hz" },
+              "smallestImagePixelValue": 44,
+              "largestImagePixelValue": 32766,
+              "pixelRepresentation": 1
+            }
+          },
+          "perImage": [
+            { "imageNumber": 1, "sampleImagePosition": [-15.0, -15.0, -0.35] },
+            { "imageNumber": 2, "sampleImagePosition": [-15.0, -15.0, -0.25] },
+            { "imageNumber": 3, "sampleImagePosition": [-15.0, -15.0, -0.15] },
+            { "imageNumber": 4, "sampleImagePosition": [-15.0, -15.0, -0.05] },
+            { "imageNumber": 5, "sampleImagePosition": [-15.0, -15.0, 0.05] },
+            { "imageNumber": 6, "sampleImagePosition": [-15.0, -15.0, 0.15] },
+            { "imageNumber": 7, "sampleImagePosition": [-15.0, -15.0, 0.25] },
+            { "imageNumber": 8, "sampleImagePosition": [-15.0, -15.0, 0.35] },
+            { "imageNumber": 9, "sampleImagePosition": [-15.0, -15.0, 0.45] },
+            { "imageNumber": 10, "sampleImagePosition": [-15.0, -15.0, 0.55] }
+          ]
+        }
+      },
+      {
+        "seriesTitle": "FLASH",
+        "sequenceProtocol": {
+          "effectiveEchoTime": { "value": 5.0085095372958, "unit": "ms" },
+          "repetitionTime": { "value": 2000.0, "unit": "ms" },
+          "flipAngle": { "value": 30.0, "unit": "\u00b0" }
+        },
+        "images": {
+          "allImages": {
+            "numberOfImages": "10",
+            "pixelSpacing": { "value": [0.1, 0.1], "unit": "mm" },
+            "sliceThickness": { "value": 0.1, "unit": "mm" },
+            "imageSize": { "rows": 300, "columns": 300 },
+            "pixelRange": {
+              "pixelBandwidth": { "value": 166.666666667, "unit": "Hz" },
+              "smallestImagePixelValue": 42,
+              "largestImagePixelValue": 32766,
+              "pixelRepresentation": 1
+            }
+          },
+          "perImage": [
+            { "imageNumber": 1, "sampleImagePosition": [-15.0, -15.0, -0.35] },
+            { "imageNumber": 2, "sampleImagePosition": [-15.0, -15.0, -0.25] },
+            { "imageNumber": 3, "sampleImagePosition": [-15.0, -15.0, -0.15] },
+            { "imageNumber": 4, "sampleImagePosition": [-15.0, -15.0, -0.05] },
+            { "imageNumber": 5, "sampleImagePosition": [-15.0, -15.0, 0.05] },
+            { "imageNumber": 6, "sampleImagePosition": [-15.0, -15.0, 0.15] },
+            { "imageNumber": 7, "sampleImagePosition": [-15.0, -15.0, 0.25] },
+            { "imageNumber": 8, "sampleImagePosition": [-15.0, -15.0, 0.35] },
+            { "imageNumber": 9, "sampleImagePosition": [-15.0, -15.0, 0.45] },
+            { "imageNumber": 10, "sampleImagePosition": [-15.0, -15.0, 0.55] }
+          ]
+        }
+      },
+      {
+        "seriesTitle": "FLASH",
+        "sequenceProtocol": {
+          "effectiveEchoTime": { "value": 5.0085095372958, "unit": "ms" },
+          "repetitionTime": { "value": 500.0, "unit": "ms" },
+          "flipAngle": { "value": 30.0, "unit": "\u00b0" }
+        },
+        "images": {
+          "allImages": {
+            "numberOfImages": "10",
+            "pixelSpacing": { "value": [0.1, 0.1], "unit": "mm" },
+            "sliceThickness": { "value": 0.1, "unit": "mm" },
+            "imageSize": { "rows": 300, "columns": 300 },
+            "pixelRange": {
+              "pixelBandwidth": { "value": 166.666666667, "unit": "Hz" },
+              "smallestImagePixelValue": 15,
+              "largestImagePixelValue": 32766,
+              "pixelRepresentation": 1
+            }
+          },
+          "perImage": [
+            { "imageNumber": 1, "sampleImagePosition": [-15.0, -15.0, -0.35] },
+            { "imageNumber": 2, "sampleImagePosition": [-15.0, -15.0, -0.25] },
+            { "imageNumber": 3, "sampleImagePosition": [-15.0, -15.0, -0.15] },
+            { "imageNumber": 4, "sampleImagePosition": [-15.0, -15.0, -0.05] },
+            { "imageNumber": 5, "sampleImagePosition": [-15.0, -15.0, 0.05] },
+            { "imageNumber": 6, "sampleImagePosition": [-15.0, -15.0, 0.15] },
+            { "imageNumber": 7, "sampleImagePosition": [-15.0, -15.0, 0.25] },
+            { "imageNumber": 8, "sampleImagePosition": [-15.0, -15.0, 0.35] },
+            { "imageNumber": 9, "sampleImagePosition": [-15.0, -15.0, 0.45] },
+            { "imageNumber": 10, "sampleImagePosition": [-15.0, -15.0, 0.55] }
+          ]
+        }
+      },
+      {
+        "seriesTitle": "FLASH",
+        "sequenceProtocol": {
+          "effectiveEchoTime": { "value": 100.0, "unit": "ms" },
+          "repetitionTime": { "value": 5000.0, "unit": "ms" },
+          "flipAngle": { "value": 30.0, "unit": "\u00b0" }
+        },
+        "images": {
+          "allImages": {
+            "numberOfImages": "10",
+            "pixelSpacing": { "value": [0.1, 0.1], "unit": "mm" },
+            "sliceThickness": { "value": 0.1, "unit": "mm" },
+            "imageSize": { "rows": 300, "columns": 300 },
+            "pixelRange": {
+              "pixelBandwidth": { "value": 166.666666667, "unit": "Hz" },
+              "smallestImagePixelValue": 45,
+              "largestImagePixelValue": 32766,
+              "pixelRepresentation": 1
+            }
+          },
+          "perImage": [
+            { "imageNumber": 1, "sampleImagePosition": [-15.0, -15.0, -0.35] },
+            { "imageNumber": 2, "sampleImagePosition": [-15.0, -15.0, -0.25] },
+            { "imageNumber": 3, "sampleImagePosition": [-15.0, -15.0, -0.15] },
+            { "imageNumber": 4, "sampleImagePosition": [-15.0, -15.0, -0.05] },
+            { "imageNumber": 5, "sampleImagePosition": [-15.0, -15.0, 0.05] },
+            { "imageNumber": 6, "sampleImagePosition": [-15.0, -15.0, 0.15] },
+            { "imageNumber": 7, "sampleImagePosition": [-15.0, -15.0, 0.25] },
+            { "imageNumber": 8, "sampleImagePosition": [-15.0, -15.0, 0.35] },
+            { "imageNumber": 9, "sampleImagePosition": [-15.0, -15.0, 0.45] },
+            { "imageNumber": 10, "sampleImagePosition": [-15.0, -15.0, 0.55] }
+          ]
+        }
+      },
+      {
+        "seriesTitle": "FLASH",
+        "sequenceProtocol": {
+          "effectiveEchoTime": { "value": 50.0, "unit": "ms" },
+          "repetitionTime": { "value": 5000.0, "unit": "ms" },
+          "flipAngle": { "value": 30.0, "unit": "\u00b0" }
+        },
+        "images": {
+          "allImages": {
+            "numberOfImages": "10",
+            "pixelSpacing": { "value": [0.1, 0.1], "unit": "mm" },
+            "sliceThickness": { "value": 0.1, "unit": "mm" },
+            "imageSize": { "rows": 300, "columns": 300 },
+            "pixelRange": {
+              "pixelBandwidth": { "value": 166.666666667, "unit": "Hz" },
+              "smallestImagePixelValue": 25,
+              "largestImagePixelValue": 32766,
+              "pixelRepresentation": 1
+            }
+          },
+          "perImage": [
+            { "imageNumber": 1, "sampleImagePosition": [-15.0, -15.0, -0.35] },
+            { "imageNumber": 2, "sampleImagePosition": [-15.0, -15.0, -0.25] },
+            { "imageNumber": 3, "sampleImagePosition": [-15.0, -15.0, -0.15] },
+            { "imageNumber": 4, "sampleImagePosition": [-15.0, -15.0, -0.05] },
+            { "imageNumber": 5, "sampleImagePosition": [-15.0, -15.0, 0.05] },
+            { "imageNumber": 6, "sampleImagePosition": [-15.0, -15.0, 0.15] },
+            { "imageNumber": 7, "sampleImagePosition": [-15.0, -15.0, 0.25] },
+            { "imageNumber": 8, "sampleImagePosition": [-15.0, -15.0, 0.35] },
+            { "imageNumber": 9, "sampleImagePosition": [-15.0, -15.0, 0.45] },
+            { "imageNumber": 10, "sampleImagePosition": [-15.0, -15.0, 0.55] }
+          ]
+        }
+      },
+      {
+        "seriesTitle": "FLASH",
+        "sequenceProtocol": {
+          "effectiveEchoTime": { "value": 5.0085095372958, "unit": "ms" },
+          "repetitionTime": { "value": 1200.0, "unit": "ms" },
+          "flipAngle": { "value": 30.0, "unit": "\u00b0" }
+        },
+        "images": {
+          "allImages": {
+            "numberOfImages": "10",
+            "pixelSpacing": { "value": [0.1, 0.1], "unit": "mm" },
+            "sliceThickness": { "value": 0.1, "unit": "mm" },
+            "imageSize": { "rows": 300, "columns": 300 },
+            "pixelRange": {
+              "pixelBandwidth": { "value": 166.666666667, "unit": "Hz" },
+              "smallestImagePixelValue": 36,
+              "largestImagePixelValue": 32766,
+              "pixelRepresentation": 1
+            }
+          },
+          "perImage": [
+            { "imageNumber": 1, "sampleImagePosition": [-15.0, -15.0, -0.35] },
+            { "imageNumber": 2, "sampleImagePosition": [-15.0, -15.0, -0.25] },
+            { "imageNumber": 3, "sampleImagePosition": [-15.0, -15.0, -0.15] },
+            { "imageNumber": 4, "sampleImagePosition": [-15.0, -15.0, -0.05] },
+            { "imageNumber": 5, "sampleImagePosition": [-15.0, -15.0, 0.05] },
+            { "imageNumber": 6, "sampleImagePosition": [-15.0, -15.0, 0.15] },
+            { "imageNumber": 7, "sampleImagePosition": [-15.0, -15.0, 0.25] },
+            { "imageNumber": 8, "sampleImagePosition": [-15.0, -15.0, 0.35] },
+            { "imageNumber": 9, "sampleImagePosition": [-15.0, -15.0, 0.45] },
+            { "imageNumber": 10, "sampleImagePosition": [-15.0, -15.0, 0.55] }
+          ]
+        }
+      },
+      {
+        "seriesTitle": "FLASH",
+        "sequenceProtocol": {
+          "effectiveEchoTime": { "value": 5.0085095372958, "unit": "ms" },
+          "repetitionTime": { "value": 800.0, "unit": "ms" },
+          "flipAngle": { "value": 30.0, "unit": "\u00b0" }
+        },
+        "images": {
+          "allImages": {
+            "numberOfImages": "10",
+            "pixelSpacing": { "value": [0.1, 0.1], "unit": "mm" },
+            "sliceThickness": { "value": 0.1, "unit": "mm" },
+            "imageSize": { "rows": 300, "columns": 300 },
+            "pixelRange": {
+              "pixelBandwidth": { "value": 166.666666667, "unit": "Hz" },
+              "smallestImagePixelValue": 17,
+              "largestImagePixelValue": 32766,
+              "pixelRepresentation": 1
+            }
+          },
+          "perImage": [
+            { "imageNumber": 1, "sampleImagePosition": [-15.0, -15.0, -0.35] },
+            { "imageNumber": 2, "sampleImagePosition": [-15.0, -15.0, -0.25] },
+            { "imageNumber": 3, "sampleImagePosition": [-15.0, -15.0, -0.15] },
+            { "imageNumber": 4, "sampleImagePosition": [-15.0, -15.0, -0.05] },
+            { "imageNumber": 5, "sampleImagePosition": [-15.0, -15.0, 0.05] },
+            { "imageNumber": 6, "sampleImagePosition": [-15.0, -15.0, 0.15] },
+            { "imageNumber": 7, "sampleImagePosition": [-15.0, -15.0, 0.25] },
+            { "imageNumber": 8, "sampleImagePosition": [-15.0, -15.0, 0.35] },
+            { "imageNumber": 9, "sampleImagePosition": [-15.0, -15.0, 0.45] },
+            { "imageNumber": 10, "sampleImagePosition": [-15.0, -15.0, 0.55] }
+          ]
+        }
+      },
+      {
+        "seriesTitle": "FLASH",
+        "sequenceProtocol": {
+          "effectiveEchoTime": { "value": 5.0085095372958, "unit": "ms" },
+          "repetitionTime": { "value": 600.0, "unit": "ms" },
+          "flipAngle": { "value": 30.0, "unit": "\u00b0" }
+        },
+        "images": {
+          "allImages": {
+            "numberOfImages": "10",
+            "pixelSpacing": { "value": [0.1, 0.1], "unit": "mm" },
+            "sliceThickness": { "value": 0.1, "unit": "mm" },
+            "imageSize": { "rows": 300, "columns": 300 },
+            "pixelRange": {
+              "pixelBandwidth": { "value": 166.666666667, "unit": "Hz" },
+              "smallestImagePixelValue": 32,
+              "largestImagePixelValue": 32766,
+              "pixelRepresentation": 1
+            }
+          },
+          "perImage": [
+            { "imageNumber": 1, "sampleImagePosition": [-15.0, -15.0, -0.35] },
+            { "imageNumber": 2, "sampleImagePosition": [-15.0, -15.0, -0.25] },
+            { "imageNumber": 3, "sampleImagePosition": [-15.0, -15.0, -0.15] },
+            { "imageNumber": 4, "sampleImagePosition": [-15.0, -15.0, -0.05] },
+            { "imageNumber": 5, "sampleImagePosition": [-15.0, -15.0, 0.05] },
+            { "imageNumber": 6, "sampleImagePosition": [-15.0, -15.0, 0.15] },
+            { "imageNumber": 7, "sampleImagePosition": [-15.0, -15.0, 0.25] },
+            { "imageNumber": 8, "sampleImagePosition": [-15.0, -15.0, 0.35] },
+            { "imageNumber": 9, "sampleImagePosition": [-15.0, -15.0, 0.45] },
+            { "imageNumber": 10, "sampleImagePosition": [-15.0, -15.0, 0.55] }
+          ]
+        }
+      }
+    ]
+  }
+}

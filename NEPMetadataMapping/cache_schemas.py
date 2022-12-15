@@ -1,7 +1,7 @@
 import urllib.request
 import logging
 import json
-import NEPMetadataMapping.schemas_collector
+from .schemas_collector import schemas_collector_instance
 
 class Cache_Schemas():
 
@@ -24,12 +24,12 @@ class Cache_Schemas():
             dict: The schema as dictionary.
         """
         try:
-            if NEPMetadataMapping.schemas_collector.schemas_collector_instance.get_uri(map_dict["uri"]):
-                json_schema = NEPMetadataMapping.schemas_collector.schemas_collector_instance.get_schema(map_dict["uri"])
+            if schemas_collector_instance.get_uri(map_dict["uri"]):
+                json_schema = schemas_collector_instance.get_schema(map_dict["uri"])
             else:
                 with urllib.request.urlopen(map_dict["uri"]) as url:
                     json_schema = json.load(url)
-                NEPMetadataMapping.schemas_collector.schemas_collector_instance.add_schema(map_dict["uri"], json_schema)
+                schemas_collector_instance.add_schema(map_dict["uri"], json_schema)
 
         except KeyError as e:
             logging.error("Schema not accessible.")

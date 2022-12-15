@@ -178,3 +178,4 @@ class Schema_Reader():
                 properties=sub_properties
                 logging.warning("No correct definition for \"oneOf\" attribute")
         return properties
+

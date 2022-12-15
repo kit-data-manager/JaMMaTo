@@ -15,7 +15,6 @@ class Dicom_Reader():
             self.pydicom_file = pydicom.dcmread(dicom_file)
         except pydicom.errors.InvalidDicomError as e:
             logging.error("InvalidDicomError for file: %s %s", dicom_file, e)
-            #self.pydicom_file = pydicom.dcmread(dicom_file, force=True)
             raise
         except FileNotFoundError as e:
             logging.error("FileNotFoundError for file: %s %s", dicom_file, e)
