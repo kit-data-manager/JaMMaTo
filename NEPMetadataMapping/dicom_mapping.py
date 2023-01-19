@@ -50,8 +50,8 @@ class Dicom_Mapping():
             series_maps_list.append(series_map)
         study_map.update_map(series=series_maps_list)
         
-        map_mri_schema = Map_MRI_Schema(schema_skeleton, list(schema_skeleton.keys()), study_map, None)
-        filled_schema = map_mri_schema.fill_json_object(map_mri_schema.schema_skeleton, map_mri_schema.key_list, map_mri_schema.map, map_mri_schema.main_key)
+        map_mri_schema = Map_MRI_Schema(schema_skeleton, list(schema_skeleton.keys()), study_map)
+        filled_schema = map_mri_schema.fill_json_object(map_mri_schema.schema_skeleton, map_mri_schema.key_list, map_mri_schema.map)
         with open(mapped_metadata, 'w') as f:
             json.dump(filled_schema, f)
 

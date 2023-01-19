@@ -14,10 +14,10 @@ class Dicom_Reader():
         try:
             self.pydicom_file = pydicom.dcmread(dicom_file)
         except pydicom.errors.InvalidDicomError as e:
-            logging.error("InvalidDicomError for file: %s %s", dicom_file, e)
+            #logging.error("InvalidDicomError for file: %s %s", dicom_file, e)
             raise
         except FileNotFoundError as e:
-            logging.error("FileNotFoundError for file: %s %s", dicom_file, e)
+            #logging.error("FileNotFoundError for file: %s %s", dicom_file, e)
             raise
         self.studyDateTime = None
         self.sub_dict=self.pydicom_object_search(self.pydicom_file)

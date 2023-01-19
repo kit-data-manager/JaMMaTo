@@ -8,6 +8,9 @@ class Attribute_Mapping():
         """
         self.__dict__.update(attributes)
 
+    def Some():
+        return ""
+
     @classmethod
     def mapping_from_object(cls, metadata_attributes: dict, map_dict: dict, map_main_attribute: str) -> dict:
         """Takes the metadata object as dictionary and the corresponding map dictionary to insert the proper values for a main attribute from the
@@ -24,7 +27,20 @@ class Attribute_Mapping():
         temp={}
         for key, value in map_dict[map_main_attribute].items():
             if key in metadata_attributes:
-                temp[value]= metadata_attributes[key]
+                if "." in value:
+                    split_values=value.split(".")
+                    split_values.append(metadata_attributes[key])
+                    for index in range(len(split_values)-1, 1, -1):
+                        value_dict={}
+                        value_dict[split_values[index-1]]= split_values[index]
+                        split_values.remove(split_values[index])
+                        split_values.remove(split_values[index-1])
+                        value_dict=type('value_dict_object', (object,), value_dict)
+                        split_values.append(value_dict)
+
+                    temp[split_values[0]]=value_dict
+                else:
+                    temp[value]= metadata_attributes[key]
             else:
                 pass
         return cls(temp)

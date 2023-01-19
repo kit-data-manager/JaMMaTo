@@ -33,13 +33,15 @@ class Map_Schema():
 
         for key in key_list:
             if (type(json_object[key]) == type(str()) or type(json_object[key]) == type(tuple())):
-
                 if key in attributes_object.__dict__.keys():
                     new_dict[key] = self.get_json_type(json_object[key], attributes_object.__dict__[key])
                 else:
                     pass
             elif type(json_object[key]) == type(dict()):
-                sub_dict = self.fill_json_object(json_object[key], list(json_object[key].keys()), attributes_object)
+                if (key in attributes_object.__dict__) and (isinstance(attributes_object.__dict__[key], type)):
+                    sub_dict = self.fill_json_object(json_object[key], list(json_object[key].keys()), attributes_object.__dict__[key])
+                else:
+                    sub_dict = self.fill_json_object(json_object[key], list(json_object[key].keys()), attributes_object)
                 if len(sub_dict) > 0:
                     new_dict[key] = sub_dict
             elif type(json_object[key]) == type(list()):
