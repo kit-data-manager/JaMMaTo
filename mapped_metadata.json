@@ -2,7 +2,6 @@
     "study": {
         "studyID": "1.2.840.10008.5.1.4.1.1.4.1",
         "studyTitle": "7 samples\nCuSO4 0 - 100 mM",
-        "studyDateTime": "2021-10-15T13:48:31",
         "program": "['Acquisition PV-360.3.1', 'ParaVision 360.3.1']",
         "user": {
             "name": "nmrsu",

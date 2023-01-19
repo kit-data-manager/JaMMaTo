@@ -14,14 +14,12 @@ class Metadata_Reader():
             metadata_document_directory (str): String path to the metadata files.
         """
         self.all_dicom_series = []
-        is_file = os.path.isfile(metadata_document_directory)
-        is_directory = os.path.isdir(metadata_document_directory)
-        if is_directory == True:
-            for file in os.listdir(metadata_document_directory):
-                file_name, file_extension = os.path.splitext(file)
-                self.evaluate_file_type(file, file_extension)
+        #is_file = os.path.isfile(metadata_document_directory)
+        #is_directory = os.path.isdir(metadata_document_directory)
+        file_name, file_extension = os.path.splitext(
+                metadata_document_directory)
 
-        elif is_file == True:
+        if file_extension == ".zip":
             file_name, file_extension = os.path.splitext(
                 metadata_document_directory)
             with zipfile.ZipFile(metadata_document_directory) as dataset:
@@ -31,6 +29,9 @@ class Metadata_Reader():
                             file.name)
                         self.evaluate_file_type(
                             file, dataset_file_extension)
+
+        elif type(file_extension) == type(str()):
+            self.evaluate_file_type(metadata_document_directory, file_extension)
         else:
             logging.error("No valid metadata file path.")
             raise FileNotFoundError("No valid metadata file path.")

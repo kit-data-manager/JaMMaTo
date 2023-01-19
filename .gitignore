@@ -3,13 +3,13 @@
 ################################
 #cython_computations.c
 test.py
-
+mapped_metadata.json
 ################################
 ########### FOLDERS ############
 ################################
 build/
 html/
-.benchmarks/
+benchmarks/
 reports/
 schemas/
 benchmarks/
