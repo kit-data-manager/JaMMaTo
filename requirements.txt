@@ -5,4 +5,4 @@ logging
 urllib
 datetime
 typing
-zipfile
+zipp
