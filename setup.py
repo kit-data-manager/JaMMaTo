@@ -8,7 +8,7 @@ setup(
   author = 'Nicolas Blumenroehr',                   
   author_email = 'nicolas.blumenroehr@gmail.com',      
   url = 'https://github.com/user/nicolasblumenroehr',  
-  download_url = 'https://github.com/kit-data-manager/JaMMaTo/archive/refs/tags/3.0.3.tar.gz',   
+  download_url = 'https://github.com/kit-data-manager/JaMMaTo/archive/refs/tags/3.0.0.tar.gz',   
   keywords = ['Schema', 'Mapping', 'DICOM', 'JSON'],   
   install_requires=[            
         'pydicom',
