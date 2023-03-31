@@ -5,7 +5,7 @@ logging
 urllib3
 datetime
 typing
-zipp
+zipfile
 <<<<<<< HEAD
 =======
 nested_lookup

@@ -12,10 +12,11 @@ benchmarks/
 reports/
 schemas/
 benchmarks/
-NEPMetadataMapping/performance
-NEPMetadataMapping/mapping_flat
-NEPMetadataMapping/test_sem_map
-NEPMetadataMapping/testthread
+jammato/performance
+jammato/mapping_flat
+jammato/test_sem_map
+jammato/testthread
+example/test_sem_map
 
 ################################
 ########### PYTHON #############
