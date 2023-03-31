@@ -1,6 +1,6 @@
 import pytest
 
-from NEPMetadataMapping.map_schema import Map_Schema
+from jammato.attribute_inserter import Attribute_Inserter
 
 class Class_for_testing1():
     def __init__(self) -> None:
@@ -21,14 +21,14 @@ class Class_for_testing2():
         self.key11=[]
 
 dummy_map=Class_for_testing2()
-test_schema1 = Map_Schema({"key1": "int", "key2": "str", "key3": "float", "key4": "bool", "key5": "None", "key6": {"key6_1": "str"}, "key7": ["str"], "key8": [{"key8_1": "str"}], "key9": [["str"]],
+test_schema1 = Attribute_Inserter({"key1": "int", "key2": "str", "key3": "float", "key4": "bool", "key5": "None", "key6": {"key6_1": "str"}, "key7": ["str"], "key8": [{"key8_1": "str"}], "key9": [["str"]],
  "key10": ("str", "int")}, 
  ["key1", "key2", "key3", "key4", "key5", "key6", "key7", "key8", "key9", "key10"], dummy_map)
-test_schema2 = Map_Schema({"key1": "int", "key2_1": "str"}, 
+test_schema2 = Attribute_Inserter({"key1": "int", "key2_1": "str"}, 
  ["key1", "key2_1"], dummy_map)
-test_schema3 = Map_Schema({"key1": "int", "key11": ["str"]}, 
+test_schema3 = Attribute_Inserter({"key1": "int", "key11": ["str"]}, 
  ["key1", "key11"], dummy_map)
-test_schema4 = Map_Schema({"key1": "int", "key11": [None]}, 
+test_schema4 = Attribute_Inserter({"key1": "int", "key11": [None]}, 
 ["key1", "key11"], dummy_map)
 
 @ pytest.mark.parametrize(

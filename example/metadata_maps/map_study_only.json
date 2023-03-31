@@ -1,0 +1,25 @@
+{
+    "uri": "https://metarepo.nffa.eu/api/v1/schemas/mri_schema?version=7",
+    "args": {
+        "studyID": "studyInstanceUid" ,
+        "studyTitle": "studyDescription",
+        "studyDateTime": "studyDateTime",
+        "program": "softwareVersions",
+        "name": "referringPhysiciansName",
+        "institutionName": "institutionName",
+        "institutionAcronym": "institutionCodeSequence",
+        "institutionDepartment": "institutionalDepartmentName",
+        "institutionID": "institutionalDepartmentTypeCodeSequence",
+        "email": "personsTelecomInformation",
+        "sampleName": "patientsName",
+        "sampleID": "patientsID",
+        "sampleSize.value": "patientsSize",
+        "sampleWeight.value": "patientsWeight",
+        "measurementConditions.value": "magneticFieldStrength",
+        "instrumentName": "stationName",
+        "instrumentID": "deviceSerialNumber",
+        "manufacturerName": "manufacturer",
+        "modelName": "manufacturersModelName",
+        "manufacturerID": "manufacturersDeviceClassUID"
+    }
+}

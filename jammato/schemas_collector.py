@@ -38,5 +38,4 @@ class Schemas_Collector():
 
         return self.schemas[uri]
 
-#Creates a running instance that can be imported by other classes.
 schemas_collector_instance = Schemas_Collector()

@@ -1,8 +1,8 @@
 import json
 from .schema_reader import Schema_Reader
 from .metadata_reader import Metadata_Reader
-from .map_mri_schema import Map_MRI_Schema
-from .attribute_mapping import Attribute_Mapping
+from .attribute_mapper import Attribute_Mapper
+from .attribute_inserter import Attribute_Inserter
 from .dicom_reader import Dicom_Reader
 from .cache_schemas import Cache_Schemas
 
@@ -39,18 +39,11 @@ class Dicom_Mapping():
         dicom_object = Metadata_Reader(metadata_files_location)
         self.validate_study(dicom_object)
         dicom_series_list = dicom_object.all_dicom_series
-
-        study_map = Attribute_Mapping.mapping_from_object(dicom_series_list[0].__dict__, map_dict, "study")
-        series_maps_list = []
-        for series in dicom_series_list:
-            series_map = Attribute_Mapping.mapping_from_object(series.__dict__, map_dict, "series")
-            all_attributes_map_list=self.series_extension(map_dict, "perImage", series)
-            kwargs={"perImage":all_attributes_map_list}
-            series_map.update_map(**kwargs)
-            series_maps_list.append(series_map)
-        study_map.update_map(series=series_maps_list)
         
-        map_mri_schema = Map_MRI_Schema(schema_skeleton, list(schema_skeleton.keys()), study_map)
+        self.Attribute_Mapper=Attribute_Mapper()
+        study_map = self.Attribute_Mapper.mapping_from_object(dicom_series_list[0].__dict__, map_dict, list(map_dict.keys())[1])
+        
+        map_mri_schema = Attribute_Inserter(schema_skeleton, list(schema_skeleton.keys()), study_map)
         filled_schema = map_mri_schema.fill_json_object(map_mri_schema.schema_skeleton, map_mri_schema.key_list, map_mri_schema.map)
         with open(mapped_metadata, 'w') as f:
             json.dump(filled_schema, f)
@@ -86,13 +79,13 @@ class Dicom_Mapping():
         """
         all_attributes_map_list=[]
         numer_of_sub_attributes=len(map_dict[map_attribute])
-        number_of_additional_objects=len(series.__dict__[list(map_dict[map_attribute].keys())[0]])
+        number_of_additional_objects=len(series.__dict__[list(map_dict[map_attribute].values())[0]])
         
         for object_number in range(0, number_of_additional_objects):
             temp_image_attributes={}
             for attribute_number in range(0, numer_of_sub_attributes):
-                temp_image_attributes[list(map_dict[map_attribute].keys())[attribute_number]]=series.__dict__[list(map_dict[map_attribute].keys())[attribute_number]][object_number]
-            attributes_map = Attribute_Mapping.mapping_from_object(temp_image_attributes, map_dict, map_attribute)
+                temp_image_attributes[list(map_dict[map_attribute].values())[attribute_number]]=series.__dict__[list(map_dict[map_attribute].values())[attribute_number]][object_number]
+            attributes_map = self.Attribute_Mapper.mapping_from_object(temp_image_attributes, map_dict, map_attribute)
             all_attributes_map_list.append(attributes_map)
         return all_attributes_map_list
 

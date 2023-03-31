@@ -1,5 +1,5 @@
-from NEPMetadataMapping.metadata_reader import Metadata_Reader
-from NEPMetadataMapping.dicom_reader import Dicom_Reader
+from jammato.metadata_reader import Metadata_Reader
+from jammato.dicom_reader import Dicom_Reader
 
 def test_dicom_reader_isdir(test_metadata_reader_isdir: object) -> object:
     test=Metadata_Reader("fakepath")

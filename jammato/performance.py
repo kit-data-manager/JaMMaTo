@@ -1,6 +1,6 @@
 from .schema_reader import Schema_Reader
 from .dicom_reader import Dicom_Reader
-from .attribute_mapping import Attribute_Mapping
+from .attribute_mapper import Attribute_Mapper
 from .dicom_mapping import Dicom_Mapping
 from .map_mri_schema import Map_MRI_Schema
 
@@ -10,10 +10,10 @@ def schema_reader(schema_reader_instance: Schema_Reader) -> None:
 def dicom_reader(dicom_file: str) -> None:
     dicom_object=Dicom_Reader(dicom_file)
 
-def attribute_mapping(dicom_series: Dicom_Reader, map_json_path: str) -> None:
+def Attribute_Mapper(dicom_series: Dicom_Reader, map_json_path: str) -> None:
     dicom_mapping=Dicom_Mapping(map_json_path, None, None)
-    study_map = Attribute_Mapping.mapping_from_object(dicom_series.__dict__, dicom_mapping.map_dict, "study")
-    series_map = Attribute_Mapping.mapping_from_object(dicom_series.__dict__, dicom_mapping.map_dict, "series")
+    study_map = Attribute_Mapper.mapping_from_object(dicom_series.__dict__, dicom_mapping.map_dict, "study")
+    series_map = Attribute_Mapper.mapping_from_object(dicom_series.__dict__, dicom_mapping.map_dict, "series")
     all_attributes_map_list=dicom_mapping.series_extension(dicom_mapping.map_dict, "perImage", dicom_series)
     kwargs={"perImage":all_attributes_map_list}
     series_map.update_map(**kwargs)

@@ -1,7 +1,7 @@
 import pydicom
 import re
 import logging
-from datetime import datetime
+from .data_cleaning import data_cleaning_instance
 
 class Dicom_Reader():
 
@@ -14,20 +14,14 @@ class Dicom_Reader():
         try:
             self.pydicom_file = pydicom.dcmread(dicom_file)
         except pydicom.errors.InvalidDicomError as e:
-            #logging.error("InvalidDicomError for file: %s %s", dicom_file, e)
+            logging.error("InvalidDicomError for file: %s %s", dicom_file, e)
             raise
         except FileNotFoundError as e:
-            #logging.error("FileNotFoundError for file: %s %s", dicom_file, e)
+            logging.error("FileNotFoundError for file: %s %s", dicom_file, e)
             raise
-        self.studyDateTime = None
-        self.sub_dict=self.pydicom_object_search(self.pydicom_file)
-        self.sub_dict.pop("pixelData")
-        self.__dict__.update(self.sub_dict)
-        self.studyDateTime = datetime.strptime(
-            self.studyDateTime, '%Y%m%d %H%M%S').isoformat()
-        self.__dict__.pop("sub_dict")
-        self.__dict__.pop("pydicom_file")
-    def pydicom_object_search(self, dataset: pydicom) -> dict:
+        
+    @classmethod
+    def pydicom_object_search(cls, dataset: pydicom) -> dict:
         """Takes as input a pydicom object and searches its attributes. Puts the attributes which contain a string as value, or a list of values into a dictionary.
 
         Args:
@@ -38,30 +32,37 @@ class Dicom_Reader():
         """
         sub_dict = {}
         for attribute in dataset:
-            if self.validate_type(attribute, pydicom.Dataset):
-                sub_dict=self.pydicom_object_search(attribute)
-            elif self.validate_type(attribute.value, pydicom.Sequence):
-                name=self.name_standardization(attribute.name)
+            if isinstance(attribute, pydicom.Dataset):
+                sub_dict=cls.pydicom_object_search(attribute)
+            elif isinstance(attribute.value, pydicom.Sequence):
+                name=cls.name_standardization(attribute.name)
                 if len(attribute.value) > 1:
                     mergedsub_dict={}
                     for value in attribute.value:
-                        subsub_dict=(self.pydicom_object_search(value))
-                        mergedsub_dict=self.merge_dict_keys(subsub_dict, mergedsub_dict)
+                        subsub_dict=(cls.pydicom_object_search(value))
+                        mergedsub_dict=cls.merge_dict_keys(subsub_dict, mergedsub_dict)
                     sub_dict.update(mergedsub_dict)
                     
                 else:
-                    sub_dict.update(self.pydicom_object_search(attribute.value))
+                    sub_dict.update(cls.pydicom_object_search(attribute.value))
             else:
-                name=self.name_standardization(attribute.name)
-                if name == "studyDate":
-                    self.studyDateTime = attribute.value + " "
-                if name == "studyTime":
-                    self.studyDateTime += attribute.value
-                
-                sub_dict[name] = attribute.value
+                name=cls.name_standardization(attribute.name)
+                if isinstance(attribute.value, pydicom.multival.MultiValue):
+                    sub_dict[name]=data_cleaning_instance.transfer_to_list(attribute.value)
+                elif isinstance(attribute.value, pydicom.valuerep.PersonName):
+                        sub_dict[name]=str(attribute.value)
+                elif isinstance(attribute.value, pydicom.uid.UID):
+                        sub_dict[name]=str(attribute.value)
+                elif isinstance(attribute.value, pydicom.valuerep.DSfloat):
+                        sub_dict[name]=str(attribute.value)
+                elif isinstance(attribute.value, pydicom.valuerep.IS):
+                        sub_dict[name]=str(attribute.value)
+                else:
+                    sub_dict[name] = attribute.value
         return sub_dict
 
-    def name_standardization(self, attribute: str) -> str: 
+    @classmethod
+    def name_standardization(cls, attribute: str) -> str: 
         """Takes a string of a dicom attribute as input and standardizes it after defined criteria.
 
         Args:
@@ -81,7 +82,8 @@ class Dicom_Reader():
         name = re.sub('[^A-Za-z0-9]+', '', name)
         return name
 
-    def merge_dict_keys(self, subsub_dict: dict, mergedsub_dict: dict) -> dict:
+    @classmethod
+    def merge_dict_keys(cls, subsub_dict: dict, mergedsub_dict: dict) -> dict:
         """Takes as input a two dictionaries that contain attributes of a repeating attribute sequence in the pydicom file. It merges the file contains and returns one dictionary that
         has a list of values from both dictionaries for each key in the new dictionary.
 
@@ -97,6 +99,10 @@ class Dicom_Reader():
         try:
             for key in dict_keys:
                 if isinstance(mergedsub_dict[key], list):
+                    if (isinstance(subsub_dict[key], list)) and (isinstance(mergedsub_dict[key][0], list)==False):
+                        mergedsub_dict[key]=[mergedsub_dict[key]]
+                    else:
+                        pass
                     mergedsub_dict[key].append(subsub_dict[key])
                     new_mergedsub_dict[key] = mergedsub_dict[key]
                 else:
@@ -104,6 +110,3 @@ class Dicom_Reader():
         except KeyError as e:
             new_mergedsub_dict = subsub_dict
         return new_mergedsub_dict
-
-    def validate_type(self, attribute: str, instance: object):
-        return isinstance(attribute, instance)

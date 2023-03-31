@@ -1,5 +1,5 @@
 import pytest
-from NEPMetadataMapping.schemas_collector import Schemas_Collector
+from jammato.schemas_collector import Schemas_Collector
 
 schemasCollectorInstance=Schemas_Collector()
 schemasCollectorInstance.add_schema("uri", {"attribute1": "value1"})

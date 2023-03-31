@@ -1,5 +1,5 @@
 import pytest
-from NEPMetadataMapping.dicom_reader import Dicom_Reader
+from jammato.dicom_reader import Dicom_Reader
 
 
 def test_dicom_reader(test_dicom_reader: object) -> dict:

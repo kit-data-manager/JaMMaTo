@@ -1,7 +1,7 @@
 import pytest
 # from Classes.dicomReader import DicomReader
 
-from NEPMetadataMapping.schema_reader import Schema_Reader
+from jammato.schema_reader import Schema_Reader
 
 test_schema1 = Schema_Reader(
     {"properties": {"key1": {"type": "integer"}}})

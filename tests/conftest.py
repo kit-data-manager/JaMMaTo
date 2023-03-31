@@ -3,7 +3,7 @@ from unittest.mock import Mock
 import pydicom
 import os
 import zipfile
-from NEPMetadataMapping.dicom_reader import Dicom_Reader
+from jammato.dicom_reader import Dicom_Reader
 
 class IterMixin(object):
     def __iter__(self):

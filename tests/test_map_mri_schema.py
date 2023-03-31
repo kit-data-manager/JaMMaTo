@@ -1,6 +1,6 @@
 import pytest
 
-from NEPMetadataMapping.map_mri_schema import Map_MRI_Schema
+from jammato.map_mri_schema import Map_MRI_Schema
 
 class Class_for_testing1():
     def __init__(self) -> None:

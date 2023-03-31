@@ -2,7 +2,12 @@
 pydicom
 jsonschema
 logging
-urllib
+urllib3
 datetime
 typing
 zipp
+<<<<<<< HEAD
+=======
+nested_lookup
+os
+>>>>>>> 6c06c2c (New version of the tool and name conversion to JaMMaTo)

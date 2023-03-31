@@ -132,15 +132,17 @@ class Schema_Reader():
             Any: The string of the Python type, or a list of Python types as strings.
         """
         if type == "integer":
-            return "int"
+            return "<class 'int'>"
         elif type == "string":
-            return "str"
+            return "<class 'str'>"
         elif type == "number":
-            return "float"
+            return "<class 'float'>"
         elif type == "boolean":
-            return "bool"
+            return "<class 'bool'>"
         elif type == "null":
-            return None
+            return "<class 'NoneType'>"
+        elif type == "array":
+            return "<class 'list'>"
         elif isinstance(type, list):
             multiple_types = []
             for j in type:
@@ -148,6 +150,7 @@ class Schema_Reader():
             return tuple(multiple_types)
         else:
             logging.warning("Type Error")
+            return None
     
     def one_of_search(self, property: dict) -> list:
         """Takes a dictionary as input that represents the oneOf type content of a json document, which is an array of multiple possible values. 

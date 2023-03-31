@@ -1,0 +1,48 @@
+{
+    "uri": "https://metarepo.nffa.eu/api/v1/schemas/mri_schema?version=7",
+    "study": {
+        "studyID": "studyInstanceUid",
+        "studyTitle": "studyDescription",
+        "studyDateTime": "studyDateTime",
+        "program": "softwareVersions",
+        "name": "referringPhysiciansName",
+        "institutionName": "institutionName",
+        "institutionAcronym": "institutionCodeSequence",
+        "institutionDepartment": "institutionalDepartmentName",
+        "institutionID": "institutionalDepartmentTypeCodeSequence",
+        "email": "personsTelecomInformation",
+        "sampleName": "patientsName",
+        "sampleID": "patientId",
+        "sampleSize.value": "patientsSize",
+        "sampleWeight.value": "patientsWeight",
+        "measurementConditions.value": "magneticFieldStrength",
+        "instrumentName": "stationName",
+        "instrumentID": "deviceSerialNumber",
+        "manufacturerName": "manufacturer",
+        "modelName": "manufacturersModelName",
+        "manufacturerID": "manufacturersDeviceClassUID"
+    },
+    "series": {
+        "seriesID": "seriesInstanceUid",
+        "seriesTitle": "seriesDescription",
+        "sequenceProtocolName": "protocolName",
+        "effectiveEchoTime.value": "effectiveEchoTime",
+        "repetitionTime.value": "repetitionTime",
+        "flipAngle.value": "flipAngle",
+        "numberOfImages": "numberOfFrames",
+        "imageOrientation": "imageOrientationpatient",
+        "pixelSpacing.value": "pixelSpacing",
+        "sliceThickness.value": "sliceThickness",
+        "rows": "rows",
+        "columns": "columns",
+        "pixelBandwidth.value": "pixelBandwidth",
+        "smallestImagePixelValue": "smallestImagePixelValue",
+        "largestImagePixelValue":"largestImagePixelValue",
+        "pixelRepresentation":"pixelRepresentation"
+        
+    },
+    "perImage": {
+        "imageNumber": "instackPositionNumber",
+        "sampleImagePosition": "imagePositionpatient" 
+    }
+}

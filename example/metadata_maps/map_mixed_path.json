@@ -1,0 +1,48 @@
+{
+    "uri": "https://metarepo.nffa.eu/api/v1/schemas/mri_schema?version=7",
+    "study": {
+        "studyID": "studyInstanceUid",
+        "studyTitle": "studyDescription",
+        "studyDateTime": "studyDateTime",
+        "program": "softwareVersions",
+        "name": "referringPhysiciansName",
+        "institutionName": "institutionName",
+        "institutionAcronym": "institutionCodeSequence",
+        "institutionDepartment": "institutionalDepartmentName",
+        "institutionID": "institutionalDepartmentTypeCodeSequence",
+        "email": "personsTelecomInformation",
+        "sampleName": "patientsName",
+        "sampleID": "patientsID",
+        "sampleSize.value": "patientsSize",
+        "sampleWeight.value": "patientsWeight",
+        "measurementConditions.value": "magneticFieldStrength",
+        "instrumentName": "stationName",
+        "instrumentID": "deviceSerialNumber",
+        "manufacturerName": "manufacturer",
+        "modelName": "manufacturersModelName",
+        "manufacturerID": "manufacturersDeviceClassUID"
+    },
+    "series": {
+        "study.series.seriesID": "seriesInstanceUid",
+        "study.series.seriesTitle": "seriesDescription",
+        "study.series.sequenceProtocol.sequenceProtocolName": "protocolName",
+        "study.series.sequenceProtocol.effectiveEchoTime.value": "effectiveEchoTime",
+        "study.series.sequenceProtocol.repetitionTime.value": "repetitionTime",
+        "study.series.sequenceProtocol.flipAngle.value": "flipAngle",
+        "study.series.images.allImages.numberOfImages": "numberOfFrames",
+        "study.series.images.allImages.imageOrientation": "imageOrientationpatient",
+        "study.series.images.allImages.pixelSpacing.value": "pixelSpacing",
+        "study.series.images.allImages.sliceThickness.value": "sliceThickness",
+        "study.series.images.allImages.imageSize.rows": "rows",
+        "study.series.images.allImages.imageSize.columns": "columns",
+        "study.series.images.allImages.pixelRange.pixelBandwidth.value": "pixelBandwidth",
+        "study.series.images.allImages.pixelRange.smallestImagePixelValue": "smallestImagePixelValue",
+        "study.series.images.allImages.pixelRange.largestImagePixelValue":"largestImagePixelValue",
+        "study.series.images.allImages.pixelRange.pixelRepresentation":"pixelRepresentation"
+        
+    },
+    "perImage": {
+        "study.series.images.perImage.imageNumber": "instackPositionNumber",
+        "study.series.images.perImage.sampleImagePosition": "imagePositionpatient"
+    }
+}

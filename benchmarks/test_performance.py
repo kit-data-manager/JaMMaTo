@@ -1,8 +1,8 @@
-from NEPMetadataMapping.schema_reader import Schema_Reader
-from NEPMetadataMapping.dicom_reader import Dicom_Reader
-from NEPMetadataMapping.attribute_mapping import Attribute_Mapping
-from NEPMetadataMapping.dicom_mapping import Dicom_Mapping
-from NEPMetadataMapping.performance import dicom_mapping_class, dicom_mapping_class, schema_reader, dicom_reader, attribute_mapping, mri_inserter
+from jammato.schema_reader import Schema_Reader
+from jammato.dicom_reader import Dicom_Reader
+from jammato.attribute_mapper import Attribute_Mapper
+from jammato.dicom_mapping import Dicom_Mapping
+from jammato.performance import dicom_mapping_class, dicom_mapping_class, schema_reader, dicom_reader, Attribute_Mapper, mri_inserter
 from typing import Any
 import json
 
@@ -17,8 +17,8 @@ dicom_file="/Users/nicoblum/bwSyncShare/NEP/DicomTestStudy/Series/series7.dcm"
 dicom_object=Dicom_Reader(dicom_file)
 map_json_path="/Users/nicoblum/bwSyncShare/map.json"
 dicom_mapping=Dicom_Mapping(map_json_path, None, None)
-study_map = Attribute_Mapping.mapping_from_object(dicom_object.__dict__, dicom_mapping.map_dict, "study")
-series_map = Attribute_Mapping.mapping_from_object(dicom_object.__dict__, dicom_mapping.map_dict, "series")
+study_map = Attribute_Mapper.mapping_from_object(dicom_object.__dict__, dicom_mapping.map_dict, "study")
+series_map = Attribute_Mapper.mapping_from_object(dicom_object.__dict__, dicom_mapping.map_dict, "series")
 all_attributes_map_list=dicom_mapping.series_extension(dicom_mapping.map_dict, "perImage", dicom_object)
 kwargs={"perImage":all_attributes_map_list}
 series_map.update_map(**kwargs)
@@ -39,9 +39,9 @@ def test_dicom_reader(benchmark: Any) -> None:
         rounds=NUM_ROUNDS,
         iterations=NUM_ITERATIONS
     )
-def test_attribute_mapping(benchmark: Any) -> None:
+def test_Attribute_Mapper(benchmark: Any) -> None:
     benchmark.pedantic(
-        attribute_mapping,
+        Attribute_Mapper,
         args=(dicom_object, map_json_path),
         rounds=NUM_ROUNDS,
         iterations=NUM_ITERATIONS
