@@ -1,8 +1,8 @@
 from distutils.core import setup
 setup(
-  name = 'jammato',         
+  name = 'JAMMATO',         
   packages = ['jammato'],   
-  version = '1.0',      
+  version = '1.1',      
   license='cc',        
   description = 'A package for mapping metadata attributes from proprietary file format schemas to a json schema document.',   
   author = 'Nicolas Blumenroehr',                   
@@ -11,7 +11,6 @@ setup(
   download_url = 'https://github.com/kit-data-manager/JaMMaTo/archive/refs/tags/3.0.3.tar.gz',   
   keywords = ['Schema', 'Mapping', 'DICOM', 'JSON'],   
   install_requires=[            
-        'pydicom',
         'pydicom',
         'jsonschema',
         'urllib3',
