@@ -1,8 +1,7 @@
 
-# NFFA-EUROPE PILOT (NEP) Metadata Mapping Tool
+# JaMMaTo
 
-This objectoriented mapping tool is based on Python, and is used for mapping metadata from a file format schema to a JSON format schema. Currently, only DICOM format is supported. Formats like Nexus and TIFF are planned for the future.
-
+The software JaMMaTo (JSON Metadata Mapping Tool) is a metadata mapping tool based on Python, and is used for mapping metadata from a proprietary file format schema to a JSON format schema. Currently, only DICOM format is supported. Formats like Nexus and TIFF are planned for the future. The software components can be implemented as separate modules to design a custom software architecture for different use cases besides the one provided.
 ```bash
 # Download and Install via pypi (https://pypi.org/project/NEPMetadataMapping/) as Python package.
 pip install NEPMetadataMapping
@@ -16,33 +15,13 @@ The mapping tool is composed of multiple, independently working modules. Summari
   - Mapping of the metadata object attributes to the attributes of the target schema, using a JSON-based metadata map.
   - Insertion of the mapped metadata attributes in the correct position of the target schema, using the schema skeleton.
 
-## Dicom_Mapping class
-This class imports all modules, relevant for mapping from DICOM files to a JSON schema, in order to execute them in a proper order. The user then simply instantiates this class to provide the directories of the files containing the metadata and the JSON map containing attribute assignments and the target schema. The following classes are all executed via this class.
+The most important classes are the following: the schema_reader class, which searches the target schema structure and produces a schema skeleton as dictionary that contains the schema attributes as keys and their data types as values, i.e. dictionaries and lists for JSON objects and arrays, and primitive data types. The dicom_reader class that is used to transfer metadata from a dicom file to a Pyhton object of the class. It implements the pydicom module to transfer the metadata key-value pairs to the object. For a DICOM Study that contains multiple Series, multiple DICOM files will be in the directory. Therefore, a corresponding amount of Python objects will be created for each DICOM file. The attribute_mapper class that uses the JSON map containing the attribute assignments of origin and target schema, to map the values of the metadata file objects from the Metadata_Reader_class to the attributes of the target schema. This results in a new class instance, with attributes of the target schema, containing the values of the origin schema, i.e. files. The attribute_inserter class that uses the schema skeleton from the Schema_Reader class and the class object of the Attribute_Mapping class, to insert the mapped attributes, i.e. the values of the origin schema at the correct position in the target JSON schema.
 
-## Cache_Schemas class
-This class uses the URI from the JSON metadata map to cache schemas. Uses the following class to deposit and query the schemas:
-  ### Schemas_Collector class
-  This class contains a dictionary of schema resolving URIs as keys and corresponding JSON schemas as dictionaries that can be used to cached already downloaded schemas.
+![mappingToolWorkflow (1)](https://user-images.githubusercontent.com/86111342/229125035-0f1d7949-7c09-4281-a173-175a84729e7f.jpg)
 
-## Schema_Reader class
 
-This class searches the target schema structure and produces a schema skeleton as dictionary that contains the schema attributes as keys and their data types as values, i.e. dictionaries and lists for JSON objects and arrays, and primitive data types.
+For the use case of DICOM mapping, these classes are sequentially executed in the dicom_mapping class, that can be directly used as a module of the PIP package.
 
-## Metadata_Reader class
+For other use cases, or more specific demands of the provided use case, the config files in the config directory and the data_cleaning class need to be adjusted, but usually require no modifications.
 
-This class identifies the format of the proprietary files and calls one the following classes (currently only one):
 
-  ### Dicom_Reader class
-  This class is used to transfer metadata from a dicom file to a Pyhton object of the class. It implements the pydicom module to transfer the metadata key-value pairs to the object. For a DICOM Study that contains multiple Series, multiple DICOM files will be in the directory. Therefore, a corresponding amount of Python objects will be created for each DICOM file.
-
-## Attribute_Mapping class
-
-This class uses the JSON map containing the attribute assignments of origin and target schema, to map the values of the metadata file objects from the Metadata_Reader_class to the attributes of the target schema. This results in a new class instance, with attributes of the target schema, containing the values of the origin schema, i.e. files.
-
-## Map_Schema class
-
-This class uses the schema skeleton from the Schema_Reader class and the class object of the Attribute_Mapping class, to insert the mapped attributes, i.e. the values of the origin schema at the correct position in the target JSON schema. It contains the following class that inherits from this class and introduces specifications for particular use cases:
-
-  ### Map_MRI_Schemas class
-
-  Introduces additional positioning for the MRI schema that contains properties that are divided into values and units attributes.
