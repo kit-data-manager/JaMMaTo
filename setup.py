@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'jammato',        
   packages = ['jammato'],   
-  version = '1.0',      
+  version = '1.1',      
   license='cc',        
   description = 'A package for mapping metadata attributes from proprietary file format schemas to a json schema document.',
   author = 'Nicolas Blumenroehr',                  
@@ -19,7 +19,7 @@ setup(
         'zipp',
         'nested_lookup'
       ],
-  python_requires = ['>=3.7'],
+  python_requires = '>=3.8',
   classifiers=[
     'Development Status :: 3 - Alpha',      
     'Intended Audience :: Developers, Users',      
