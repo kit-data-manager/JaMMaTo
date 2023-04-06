@@ -1,13 +1,8 @@
 #Runtime requirements Could also specify versions, e.g. jsonschema>=1.10
 pydicom
 jsonschema
-logging
 urllib3
 datetime
 typing
-zipfile
-<<<<<<< HEAD
-=======
+zipp
 nested_lookup
-os
->>>>>>> 6c06c2c (New version of the tool and name conversion to JaMMaTo)
