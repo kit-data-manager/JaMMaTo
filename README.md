@@ -4,9 +4,10 @@
 The software JaMMaTo (JSON Metadata Mapping Tool) is a metadata mapping tool based on Python, and is used for mapping metadata from a proprietary file format schema to a JSON format schema. Currently, only DICOM format is supported. Formats like Nexus and TIFF are planned for the future. The software components can be implemented as separate modules to design a custom software architecture for different use cases besides the one provided.
 
 ```bash
-# Download and Install via pypi (https://pypi.org/project/jammato/) as Python package. This requires to execute the package in a working directory that has a [configs](/configs) folder containing the configuration files.
+# Download and Install via pypi (https://pypi.org/project/jammato/) as Python package.
 pip install jammato
 ```
+The pip package requires to execution in a working directory that has a [configs](/configs) folder containing the configuration files.
 
 ## Structure and components
 
