@@ -13,7 +13,7 @@ from .attribute_inserter import Attribute_Inserter
 
 class Dicom_Mapping():
     
-    def __init__(self, map_json_path: str, metadata_files_location: str, mapped_metadata: str='mapped_metadata.json', config_dicom_file_validation: str=os.getcwd()+"/NEPMetadataMapping/configs/config_dicom_file_validation.json") -> None:
+    def __init__(self, map_json_path: str, metadata_files_location: str, mapped_metadata: str='mapped_metadata.json', config_dicom_file_validation: str=os.getcwd()+"/configs/config_dicom_file_validation.json") -> None:
         """Instantiates the class, loads the map dictionary from JSON, instantiates all attributes to the object and executes the steps for mapping.
 
         Args:
