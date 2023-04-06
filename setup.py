@@ -1,28 +1,30 @@
 from distutils.core import setup
 setup(
-  name = 'JAMMATO',         
+  name = 'jammato',        
   packages = ['jammato'],   
-  version = '1.1',      
+  version = '1.0',      
   license='cc',        
-  description = 'A package for mapping metadata attributes from proprietary file format schemas to a json schema document.',   
-  author = 'Nicolas Blumenroehr',                   
+  description = 'A package for mapping metadata attributes from proprietary file format schemas to a json schema document.',
+  author = 'Nicolas Blumenroehr',                  
   author_email = 'nicolas.blumenroehr@gmail.com',      
-  url = 'https://github.com/user/nicolasblumenroehr',  
-  download_url = 'https://github.com/kit-data-manager/JaMMaTo/archive/refs/tags/3.0.0.tar.gz',   
+  url = 'https://github.com/user/nicolasblumenroehr',   
+  download_url = 'https://github.com/kit-data-manager/JaMMaTo/archive/refs/tags/3.0.0.tar.gz',    
   keywords = ['Schema', 'Mapping', 'DICOM', 'JSON'],   
-  install_requires=[            
+  install_requires=[           
         'pydicom',
         'jsonschema',
         'urllib3',
         'datetime',
         'typing',
-        'zipfile'
+        'zipp',
+        'nested_lookup'
       ],
+  python_requires = ['>=3.7'],
   classifiers=[
     'Development Status :: 3 - Alpha',      
-    'Intended Audience :: Developers',    
+    'Intended Audience :: Developers, Users',      
     'Topic :: Software Development :: Build Tools',
-    'License :: OSI Approved :: MIT License', 
-    'Programming Language :: Python :: 3.10'
+    'License :: OSI Approved :: ',   
+    'Programming Language :: Python :: 3'
   ],
 )
