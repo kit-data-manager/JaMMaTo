@@ -1,0 +1,4 @@
+{
+    "merge_date_time": [["studyDate", "studyTime"], "studyDateTime"],
+    "merge_min_max_values": [["smallestImagePixelValue", "largestImagePixelValue"], ""]
+}
