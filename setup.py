@@ -22,9 +22,9 @@ setup(
   python_requires = '>=3.8',
   classifiers=[
     'Development Status :: 3 - Alpha',      
-    'Intended Audience :: Developers, Users',      
+    'Intended Audience :: Developers',      
     'Topic :: Software Development :: Build Tools',
-    'License :: OSI Approved :: ',   
+    'License :: OSI Approved :: Common Public License',   
     'Programming Language :: Python :: 3'
   ],
 )
