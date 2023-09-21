@@ -41,7 +41,8 @@ class Metadata_Reader():
                         self.all_dicom_series.extend(self.post_read_processing(value, flag="single"))
 
         elif type(file_extension) == type(str()):
-            self.evaluate_file_type(None, metadata_document_directory, file_extension)
+            self.evaluate_file_type(metadata_document_directory, file_extension)
+            self.all_dicom_series.extend(self.post_read_processing(list(self.all_dicom_series_dict.values())[0], flag="single"))
         else:
             logging.error("No valid metadata file path.")
             raise FileNotFoundError("No valid metadata file path.")

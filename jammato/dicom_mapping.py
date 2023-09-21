@@ -1,7 +1,6 @@
 import json
 import os
 import logging
-from typing import Any
 from .schema_reader import Schema_Reader
 from .dicom_reader import Dicom_Reader
 from .cache_schemas import Cache_Schemas

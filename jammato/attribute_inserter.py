@@ -2,6 +2,7 @@ from typing import Any
 import logging
 from .attribute_mapper import Attribute_Mapper
 
+
 class Attribute_Inserter():
 
     def __init__(self, schema_skeleton: dict, key_list: list, map: object) -> None:
@@ -35,9 +36,9 @@ class Attribute_Inserter():
         for key in key_list:
             if (isinstance(json_object[key], str)) or (isinstance(json_object[key], tuple)):
                 if key in attributes_object.keys():
-                    new_dict[key] = self.get_json_type(json_object[key], attributes_object[key])
+                    new_dict[key] = self.get_json_type(json_object[key], attributes_object[key], key)
                 else:
-                    new_dict[key] = self.get_json_type(json_object[key], json_object[key])
+                    new_dict[key] = self.get_json_type(json_object[key], json_object[key], key)
             elif isinstance(json_object[key], dict):
                 if key in attributes_object:
                     if isinstance(attributes_object[key], Attribute_Mapper):
@@ -75,7 +76,7 @@ class Attribute_Inserter():
         Returns:
             list: The list that represents the filled json array.
         """
-        if isinstance(attributes, list) == False:
+        if not isinstance(attributes, list):
             if json_object_property in attributes.__dict__.keys():
                 attributes = attributes.__dict__[json_object_property]
         try:
@@ -89,7 +90,7 @@ class Attribute_Inserter():
         for list_item, list_index in zip(json_array, range(0, len(json_array))):
             if (isinstance(list_item, str)) or (isinstance(list_item, tuple)):
                 try:
-                    new_list.append(self.get_json_type(list_item, attributes[list_index]))
+                    new_list.append(self.get_json_type(list_item, attributes[list_index], None))
                 except TypeError as e:
                     logging.warning(e)
                     pass
@@ -106,7 +107,7 @@ class Attribute_Inserter():
                 pass
         return new_list
 
-    def get_json_type(self, data_type: str, attribute: str) -> Any:
+    def get_json_type(self, data_type: str, attribute: str, key) -> Any:
         """Takes an attribute and its data type. Confirms the primitive data types of the mapped attribute values and assigns these values to the schema attribute. The correct hirarchial
         position has been reached through the methods above.
 
@@ -118,19 +119,19 @@ class Attribute_Inserter():
             Any: The value of the mapped attribute as the correct data type.
         """
         try:
-            if (isinstance(data_type, tuple) and (isinstance(attribute, tuple)==False)):
+            if (isinstance(data_type, tuple) and not (isinstance(attribute, tuple))):
                 if (isinstance(attribute, list)) and ("<class 'list'>" in data_type):
                     return attribute
                 else:
                     for element in data_type:
                         if element in ["<class 'int'>", "<class 'bool'>", "<class 'None'>", "<class 'float'>", "<class 'list'>"]:
-                            return (self.get_json_type(element, attribute))
+                            return (self.get_json_type(element, attribute, None))
                         else:
                             pass
-                    logging.warning(f'incorrect type provided for {attribute}, expected {data_type} but received {type(attribute)}, returning original value.')
+                    logging.warning(f'incorrect type provided for property \"{key}\", expected {data_type} but received {type(attribute)}, returning original value.')
                     return attribute
             elif isinstance(attribute, tuple):
-                logging.warning(f'No value provided for {attribute}, returning original value.')
+                logging.warning(f'No value provided for property \"{key}\", returning original value.')
                 return attribute
             elif data_type == "<class 'int'>":
                 return int(attribute)
@@ -143,11 +144,11 @@ class Attribute_Inserter():
             elif data_type == "<class 'str'>":
                 return str(attribute)
             else:
-                logging.warning(f'incorrect type provided for {attribute}, expected {data_type} but received {type(attribute)}, returning original value.')
+                logging.warning(f'incorrect type provided for property \"{key}\", expected {data_type} but received {type(attribute)}, returning original value.')
                 return attribute
-        except TypeError as e:
-            logging.warning(f'incorrect type provided for {attribute}, expected {data_type} but received {type(attribute)}, returning original value.')
+        except TypeError:
+            logging.warning(f'incorrect type provided for property \"{key}\", expected {data_type} but received {type(attribute)}, returning original value.')
             return attribute
-        except ValueError as e:
-            logging.warning(f'incorrect value provided for {attribute}, expected {data_type} but received {type(attribute)}, returning original value.')
+        except ValueError:
+            logging.warning(f'incorrect value provided for property \"{key}\", expected {data_type} but received {type(attribute)}, returning original value.')
             return attribute
