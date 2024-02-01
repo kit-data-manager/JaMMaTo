@@ -65,12 +65,12 @@ class Data_Cleaning():
                 new_list.append(value)
         return new_list
 
-    def set_attributes_from_config(self, flag, config_file_path: str=os.getcwd()+"/configs/config_data_cleaning.json",) -> None:
+    def set_attributes_from_config(self, flag, config_file_path: str=os.getcwd()+"/config/config_data_cleaning.json",) -> None:
         """Uses the JSON config file for the data cleaning to assess the methods and respective attributes that need to be cleaned. Attributes 
         and methods are then iteratively called and executed. The object instance attribute attribute_dict is then updatet after each process.
 
         Args:
-            config_file_path (str, optional): The relative path to the config file directory. Defaults to os.getcwd()+"/configs/config_data_cleaning.json".
+            config_file_path (str, optional): The relative path to the config file directory. Defaults to os.getcwd()+"/config/config_data_cleaning.json".
         """
         with open(config_file_path, 'r') as f:
             config_file = json.load(f)
