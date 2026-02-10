@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: If you use this software, please cite it using these metadata.
+type: software
+title: JaMMaTo
+abstract: The software JaMMaTo (JSON Metadata Mapping Tool) is a metadata mapping
+  tool based on Python, and is used for mapping metadata from a proprietary file format
+  schema to a JSON format schema.
+version: v4.0.0rc
+keywords:
+  - MRI
+  - DICOM
+  - metadata
+  - extraction
+  - schema
+authors:
+  - given-names: Nicolas
+    orcid: https://orcid.org/0009-0007-0235-4995
+    family-names: Blumenröhr
+  - given-names: Rossella
+    orcid: https://orcid.org/0000-0003-2534-0063
+    family-names: Aversa
+contact:
+  - given-names: Gabin Thibaut
+    orcid: https://orcid.org/0000-0002-6745-3464
+    family-names: Oumbe Tekam
+  - given-names: Germaine
+    orcid: https://orcid.org/0000-0003-3974-3728
+    family-names: Götzelmann
+license: Apache-2.0
+repository-code: https://github.com/kit-data-manager/JaMMaTo

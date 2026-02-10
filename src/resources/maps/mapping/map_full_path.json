@@ -1,0 +1,48 @@
+{
+    "uri": "https://metarepo.nffa.eu/api/v1/schemas/mri_schema?version=7",
+    "study": {
+        "study.studyID": "StudyInstanceUID" ,
+        "study.studyTitle": "StudyDescription",
+        "study.studyDateTime": "StudyDate",
+        "study.program": "SoftwareVersions",
+        "study.user.name": "ReferringPhysicianName",
+        "study.user.affiliation.institutionName": "InstitutionName",
+        "study.user.affiliation.institutionAcronym": "InstitutionCodeSequence",
+        "study.user.affiliation.institutionDepartment": "InstitutionalDepartmentName",
+        "study.user.affiliation.institutionID": "InstitutionalDepartmentTypeCodeSequence",
+        "study.user.email": "PersonsTelecomInformation",
+        "study.sample.sampleName": "PatientName",
+        "study.sample.sampleID": "PatientID",
+        "study.sample.sampleSize.value": "PatientsSize",
+        "study.sample.sampleWeight.value": "PatientWeight",
+        "study.sample.measurementConditions.value": "MagneticFieldStrength",
+        "study.instrument.instrumentName": "StationName",
+        "study.instrument.instrumentID": "DeviceSerialNumber",
+        "study.instrument.instrumentManufacturer.manufacturerName": "Manufacturer",
+        "study.instrument.instrumentManufacturer.modelName": "ManufacturerModelName",
+        "study.instrument.instrumentManufacturer.manufacturerID": "ManufacturersDeviceClassUID"
+    },
+    "series": {
+        "study.series.seriesID": "SeriesInstanceUID",
+        "study.series.seriesTitle": "SeriesDescription",
+        "study.series.sequenceProtocol.sequenceProtocolName": "ProtocolName",
+        "study.series.sequenceProtocol.effectiveEchoTime.value": "EchoTime",
+        "study.series.sequenceProtocol.repetitionTime.value": "RepetitionTime",
+        "study.series.sequenceProtocol.flipAngle.value": "FlipAngle",
+        "study.series.images.allImages.numberOfImages": "NumberOfFrames",
+        "study.series.images.allImages.imageOrientation": "ImageOrientationPatient",
+        "study.series.images.allImages.pixelSpacing.value": "PixelSpacing",
+        "study.series.images.allImages.sliceThickness.value": "SliceThickness",
+        "study.series.images.allImages.imageSize.rows": "Rows",
+        "study.series.images.allImages.imageSize.columns": "Columns",
+        "study.series.images.allImages.pixelRange.pixelBandwidth.value": "PixelBandwidth",
+        "study.series.images.allImages.pixelRange.pixelRepresentation":"PixelRepresentation",
+        "study.series.images.allImages.pixelRange.largestImagePixelValue":"LargestImagePixelValue",
+        "study.series.images.allImages.pixelRange.smallestImagePixelValue": "SmallestImagePixelValue"
+        
+    },
+    "perImage": {
+        "study.series.images.perImage.imageNumber": "InstanceNumber",
+        "study.series.images.perImage.sampleImagePosition": "ImagePositionPatient"
+    }
+}
