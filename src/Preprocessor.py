@@ -1,6 +1,7 @@
 import logging
 import numpy as np
 from datetime import datetime
+import re
 
 from jsonpath_ng.parser import JsonPathParser
 
@@ -24,17 +25,6 @@ class Preprocessor:
         'Secs': 's',
         'Mins': 'min'
     }
-
-    @staticmethod
-    def get_expected_type(field_path):
-
-        expected_types = {
-            "entry.entry_identifier": "string_type",
-            "entry.instrument.monochromator.grating.period.value": "int_type",
-            "entry.sample.gas_flux[*].value": "float_type"
-        }
-
-        return expected_types.get(field_path, None)
 
     @staticmethod
     def normalize_unit(input_value) -> str:
@@ -86,56 +76,42 @@ class Preprocessor:
                     m.full_path.update(input_dict, normalized_value)
 
     @staticmethod
-    def normalize_all_numbers(input_dict):
+    def normalize_string_lists(input_dict):
         """
-        In-place conversion of numeric strings into integers or floats, but checks if it's an appropriate field.
-        :param input_dict: dictionary to convert numeric values in
+        Convert string representations of lists to actual lists.
+        :param input_dict: dictionary to convert string lists in
         :return: None
         """
-        number_fields = Preprocessor.parser.parse("$..*")  # Traverse all fields
-
-        for match in number_fields.find(input_dict):
+        
+        all_fields = Preprocessor.parser.parse("$..*")
+        
+        for match in all_fields.find(input_dict):
             original_value = match.value
             current_field = str(match.full_path)
-            expected_type = Preprocessor.get_expected_type(current_field)
-            #print("<<<<>>>>  ",original_value)
-                
-            # Handle type conversions if needed (e.g.: int_type, float_type)
-            if isinstance(original_value, str):
-                try:
-                    if expected_type == "int_type": # Convert only if it's a valid integer-like string
-                        converted_value = int(original_value)
-                        match.full_path.update(input_dict, converted_value)
-                    elif expected_type == "float_type": # Convert only if it's a valid float-like string
-                        converted_value = float(original_value)
-                        match.full_path.update(input_dict, converted_value)
-                except ValueError:
-                    logging.warning(f"Error while trying to convert '{original_value}' into {expected_type} for field {current_field}")
-                    continue
             
-            # Check if the value is a numpy array
-            if isinstance(original_value, np.ndarray) and original_value.size > 0:
-                try:
-                    converted_value = np.array([int(x) if isinstance(x, (int, str)) and not np.isnan(x) 
-                                                else float(x) if isinstance(x, (float, str)) and not np.isnan(x) 
-                                                else x 
-                                                for x in original_value], dtype=float)
-
-                    match.full_path.update(input_dict, converted_value)
-                except ValueError:
-                    logging.warning(f"Error while converting numpy array values for field {current_field}")
-                    continue
+            if isinstance(original_value, str):
+                # Convert string representations of lists to actual lists
+                if original_value.startswith('[') and original_value.endswith(']'):
+                    try:
+                        converted_value = ast.literal_eval(original_value)
+                        match.full_path.update(input_dict, converted_value)
+                    except:
+                        # Try to extract numbers from the string
+                        numbers = re.findall(r'-?\d+\.?\d*', original_value)
+                        if numbers:
+                            converted_value = [float(n) if '.' in n else int(n) for n in numbers]
+                            match.full_path.update(input_dict, converted_value)
 
     @staticmethod
-    def normalize_gas_names(input_dict):
-        gas_fields = Preprocessor.parser.parse("$..gas_name")
-
-        for match in gas_fields.find(input_dict):
-            original_value = match.value
-            # Extract gas name if it's stored incorrectly (e.g., "/entry/sample/gas_flux_C2H4")
-            if isinstance(original_value, str) and "/" in original_value:
-                possible_gas = original_value.split("_")[-1]
-                match.full_path.update(input_dict, possible_gas)
-            else:
-                logging.warning(f"Unexpected gas name format: {original_value}")
-
+    def normalize_program_field(input_dict):
+        """
+        Convert program field from list to string representation for schema compatibility.
+        :param input_dict: dictionary to convert program field in
+        :return: None
+        """
+        program_fields = Preprocessor.parser.parse("$..program")
+        
+        for match in program_fields.find(input_dict):
+            if isinstance(match.value, list):
+                converted_value = str(match.value)
+                match.full_path.update(input_dict, converted_value)
