@@ -1,6 +1,7 @@
 import json
 import logging
 from pathlib import Path
+import re
 
 import h5py
 import pydicom
@@ -134,19 +135,24 @@ def _flat_to_nested_dict(flat_dict):
 def _dicom_to_nested_dict(ds):
     result = {}
 
-    for elem in ds:
-        # Skip PixelData type (large binary)
-        if elem.VR in ("OB", "OW", "OF", "OD", "UN"):
+    for attribute in ds:
+        # Skip PixelData type (large binary) - VR (Value Representation)
+        if attribute.VR in ("OB", "OW", "OF", "OD", "UN"):
             continue
 
-        key = elem.keyword or elem.name or str(elem.tag)
+        # Use standardized names to match mapping file expectations
+        keyword = attribute.keyword
+        name = attribute.name
+        standardized = name_standardization(name) if name else None
+        
+        key = standardized or keyword or str(attribute.tag)
 
         # Nested type - Sequence
-        if elem.VR == "SQ":
-            result[key] = [_dicom_to_nested_dict(item) for item in elem.value]
+        if attribute.VR == "SQ":
+            result[key] = [_dicom_to_nested_dict(attribute) for item in attribute.value]
             continue
 
-        val = elem.value
+        val = attribute.value
 
         # JSON-friendly conversion
         if isinstance(val, (bytes, bytearray)):
@@ -209,3 +215,23 @@ def get_filetype_with_magica(filepath):
     m = Magika()
     res = m.identify_path(Path(filepath))
     return res.output.mime_type
+
+def name_standardization(attribute: str) -> str: 
+        """Takes a string of a dicom attribute as input and standardizes it after defined criteria.
+
+        Args:
+            attribute (str): The attribute string that should be standardized.
+
+        Returns:
+            str: The attribute string after standardization.
+        """
+        name = attribute.split()
+        if len(name) == 1:
+            name = name[0].lower()
+        else:
+            subname = ""
+            for letter in name[1:]:
+                subname += letter.capitalize()
+            name = name[0].lower() + subname
+        name = re.sub('[^A-Za-z0-9]+', '', name)
+        return name
