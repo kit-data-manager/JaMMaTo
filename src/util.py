@@ -149,7 +149,7 @@ def _dicom_to_nested_dict(ds):
 
         # Nested type - Sequence
         if attribute.VR == "SQ":
-            result[key] = [_dicom_to_nested_dict(attribute) for item in attribute.value]
+            result[key] = [_dicom_to_nested_dict(item) for item in attribute.value]
             continue
 
         val = attribute.value

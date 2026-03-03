@@ -13,6 +13,9 @@ def parse_datetime(value: str):
             return datetime.strptime(value, "%m/%d/%Y %H:%M:%S")
         if "." in value:
             return datetime.strptime(value, '%d.%m.%Y %H:%M:%S')
+        # Handle DICOM combined format: 'YYYYMMDD HHMMSS'
+        if len(value) == 15 and value[8] == ' ' and value[:8].isdigit() and value[9:].isdigit():
+            return datetime.strptime(value, "%Y%m%d %H%M%S")
         return datetime.strptime(value, '%d %b %Y %H:%M:%S')#specific handling of expected date format that usual validator cannot handle
     except ValueError:
         return value #not a German date - lets hope that the normal validator can handle it

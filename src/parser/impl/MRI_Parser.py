@@ -39,6 +39,7 @@ class MRI_Parser(ImageParser):
             exit(1)
         mapping_dict = mapping if mapping else self.internal_mapping
         
+        # Normalize datetimes before mapping to create studyDateTime field
         Preprocessor.normalize_all_datetimes(input_md)
         
         image_md = map_a_dict(input_md, mapping_dict)

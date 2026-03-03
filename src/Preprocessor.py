@@ -1,6 +1,6 @@
 import logging
 import numpy as np
-from datetime import datetime
+from datetime import datetime, timezone
 import re
 
 from jsonpath_ng.parser import JsonPathParser
@@ -53,19 +53,36 @@ class Preprocessor:
     @staticmethod
     def normalize_datetime(input_value) -> str:
         if type(input_value) == dict:
-            if not input_value.get("Date") and input_value.get("Time"):
+            if not input_value.get("Date") and input_value.get("Time"): # Not possible to handle only Time
                 logging.warning("Encountered complex date field, but cannot interpret it")
                 return input_value
+            if input_value.get("Date") and not input_value.get("Time"): # Handle only Date
+                input_value["Time"] = "00:00:00"
+                logging.info("Input with date information but no time information found. Setting time to 00:00:00")
             input_value = input_value.get("Date") + " " + input_value.get("Time")
         output_value = parse_datetime(input_value)
         if type(output_value) == datetime:
-            return output_value.isoformat()
+            if output_value.tzinfo:
+                output_value = output_value.astimezone(timezone.utc) # datetime has timezone info, convert it to UTC
+            else:
+                output_value = output_value.replace(tzinfo=timezone.utc) # No timezone, assume it's already in UTC
+            return output_value.isoformat().replace("+00:00", "Z")
         return input_value
 
     @staticmethod
     def normalize_all_datetimes(input_dict):
-        fields_for_normalization = ["creationTime", "startTime", "endTime"] #we could do it more generically but may want to limit it to specific fields
-
+        # Handle studyDate + studyTime -> studyDateTime combination
+        if isinstance(input_dict, dict) and 'studyDate' in input_dict and 'studyTime' in input_dict:
+            # Create dict format that normalize_datetime expects
+            datetime_dict = {
+                "Date": input_dict['studyDate'],
+                "Time": input_dict['studyTime']
+            }
+            combined_datetime = Preprocessor.normalize_datetime(datetime_dict)
+            input_dict['studyDateTime'] = combined_datetime
+        
+        # Handle other datetime fields with original logic
+        fields_for_normalization = ["creationTime", "startTime", "endTime"]
         for f in fields_for_normalization:
             date_fields = Preprocessor.parser.parse("$.." + f)
             date_matches = [m for m in date_fields.find(input_dict)]
