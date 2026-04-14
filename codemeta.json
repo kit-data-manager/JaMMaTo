@@ -1,0 +1,72 @@
+{
+  "@context": [
+    "https://doi.org/10.5063/schema/codemeta-2.0",
+    "https://w3id.org/software-iodata",
+    "https://raw.githubusercontent.com/jantman/repostatus.org/master/badges/latest/ontology.jsonld",
+    "https://schema.org",
+    "https://w3id.org/software-types"
+  ],
+  "@type": "SoftwareSourceCode",
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Nicolas",
+      "familyName": "Blumenröhr",
+      "@id": "https://orcid.org/0009-0007-0235-4995",
+      "identifier": "https://orcid.org/0009-0007-0235-4995"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Rossella",
+      "familyName": "Aversa",
+      "@id": "https://orcid.org/0000-0003-2534-0063",
+      "identifier": "https://orcid.org/0000-0003-2534-0063"
+    }
+  ],
+  "name": "JaMMaTo",
+  "description": "The software JaMMaTo (JSON Metadata Mapping Tool) is a metadata mapping tool based on Python, and is used for mapping metadata from a proprietary file format schema to a JSON format schema.",
+  "version": "v4.0.0rc",
+  "keywords": [
+    "MRI",
+    "DICOM",
+    "metadata",
+    "extraction",
+    "schema"
+  ],
+  "maintainer": [
+    {
+      "@type": "Person",
+      "givenName": "Gabin Thibaut",
+      "familyName": "Oumbe Tekam",
+      "@id": "https://orcid.org/0000-0002-6745-3464",
+      "identifier": "https://orcid.org/0000-0002-6745-3464"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Germaine",
+      "familyName": "Götzelmann",
+      "@id": "https://orcid.org/0000-0003-3974-3728",
+      "identifier": "https://orcid.org/0000-0003-3974-3728"
+    }
+  ],
+  "license": [
+    "https://spdx.org/licenses/Apache-2.0"
+  ],
+  "codeRepository": "https://github.com/kit-data-manager/JaMMaTo",
+  "contributor": [
+    {
+      "@type": "Person",
+      "givenName": "Gabin Thibaut",
+      "familyName": "Oumbe Tekam",
+      "@id": "https://orcid.org/0000-0002-6745-3464",
+      "identifier": "https://orcid.org/0000-0002-6745-3464"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Germaine",
+      "familyName": "Götzelmann",
+      "@id": "https://orcid.org/0000-0003-3974-3728",
+      "identifier": "https://orcid.org/0000-0003-3974-3728"
+    }
+  ]
+}
