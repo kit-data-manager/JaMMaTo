@@ -3,10 +3,11 @@ from typing import Optional
 import json
 import re
 
+from mappingservice_plugincore.exceptions.MappingAbortionError import MappingAbortionError
 from src.Preprocessor import Preprocessor
 from src.model.ImageMD import ImageMD
 from src.model.SchemaConcepts.MRI_Image import MRI_Image
-from src.parser.ImageParser import ImageParser
+from mappingservice_plugincore.parser.ImageParser import ImageParser
 from src.parser.mapping_util import map_a_dict
 from src.resources.maps.mapping import mriparser_full, mriparser_mixed, mriparser_relative, mriparser_study
 from src.util import input_to_dict
@@ -26,6 +27,15 @@ class MRI_Parser(ImageParser):
     @staticmethod
     def expected_input_format():
         return ["application/octet-stream", "application/x-hdf5", "application/dicom", "application/x-iso9660-image"]
+
+    def _create_tomo_image(self, image_md, raw_md):
+        """
+        Create a tomography image from the parsed metadata.
+        This method is required by the parent ImageParser class.
+        """
+        # For MRI, we don't create tomography images, so return None
+        # or implement if needed for your specific use case
+        return None
 
     def parse(self, file_path, mapping) -> tuple[ImageMD, str]:
         input_md = self._read_input_file(file_path)

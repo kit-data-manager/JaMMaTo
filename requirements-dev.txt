@@ -34,3 +34,4 @@ mkdocstrings
 mkdocstrings[python]
 mkdocs-material
 Pygments
+mappingservice-plugincore @ git+https://github.com/GGoetzelmann/mappingservice_plugincore.git@development

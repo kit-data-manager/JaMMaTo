@@ -18,7 +18,7 @@ import numpy as np
 import requests
 import zipfile
 
-from src.IO.MappingAbortionError import MappingAbortionError
+from mappingservice_plugincore.exceptions.MappingAbortionError import MappingAbortionError
 
 def robust_textfile_read(filepath):
     try:

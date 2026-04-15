@@ -7,31 +7,32 @@ import zipfile
 import shutil
 from pathlib import Path
 
-from src.IO.MappingAbortionError import MappingAbortionError
+from mappingservice_plugincore.exceptions.MappingAbortionError import MappingAbortionError
 from src.IO.InputReader import InputReader
 from src.IO.OutputWriter import OutputWriter
+from src.parser import ParserConfig
 
 # Make log level configurable from ENV, defaults to INFO level
 logging.basicConfig(
     level=os.environ.get('LOGLEVEL', 'INFO').upper()
 )
 
-def run_cli():
+def get_args():
     parser = argparse.ArgumentParser(description='JaMMaTo DICOM Mapper - following tomo_mapper architecture')
     parser.add_argument('-i', '--input', required=True, help='Input DICOM file or zip file')
-    parser.add_argument('-m', '--mapping', required=True, help='Mapping file path')
+    parser.add_argument('-m', '--map', required=True, help='Mapping file path')
     parser.add_argument('-o', '--output', required=True, help='Output JSON file path')
-    
-    args = parser.parse_args()
-    
-    # Use MRI mapper by default (following tomo_mapper logic)
+    return parser.parse_args()
+
+def run_cli():
+    args = get_args()
     run_mri_mapper(args)
 
 def run_mri_mapper(args):
-    argdict = vars(args)
-    INPUT_SOURCE = argdict.get('input')
-    MAP_SOURCE = argdict.get('mapping')  # Fixed: use 'mapping' instead of 'map'
-    OUTPUT_PATH = argdict.get('output')
+    ParserConfig.register_parsers()
+    INPUT_SOURCE = args.input
+    MAP_SOURCE = args.map
+    OUTPUT_PATH = args.output
 
     try:
         if zipfile.is_zipfile(INPUT_SOURCE):

@@ -1,7 +1,9 @@
 import os
 import pytest
+import shutil
 
 from src.IO.InputReader import InputReader
+from src.parser import ParserConfig
 from src.parser.impl.MRI_Parser import MRI_Parser
 
 
@@ -15,6 +17,8 @@ class TestInputReader:
         tp = self.set_up_sample_data()
 
         dicomfile = os.path.join(tp, "./MRIm1.dcm")
+        ParserConfig.register_parsers()
+        
 
         parsers = InputReader.get_applicable_parsers(dicomfile)
         assert len(parsers) >= 1
@@ -28,6 +32,7 @@ class TestInputReader:
         tp = self.set_up_sample_data()
 
         dicomfile = os.path.join(tp, "./MRIm1.dcm")
+        ParserConfig.register_parsers()
 
         parsers = InputReader.get_applicable_parsers(dicomfile)
         assert len(parsers) >= 1
@@ -39,9 +44,9 @@ class TestInputReader:
         # Create a copy of the DICOM file without extension
         dicomfile_with_ext = os.path.join(tp, "./MRIm1.dcm")
         dicomfile_wo_ext = os.path.join(tp, "./MRIm1")
+        ParserConfig.register_parsers()
         
         # Copy the file without extension
-        import shutil
         shutil.copy2(dicomfile_with_ext, dicomfile_wo_ext)
 
         parsers = InputReader.get_applicable_parsers(dicomfile_wo_ext)

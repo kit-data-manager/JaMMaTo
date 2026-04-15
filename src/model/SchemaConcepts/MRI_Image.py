@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional, Dict, Any
 
-from src.model.SchemaConcepts.Schema_Concept import Schema_Concept
+from mappingservice_plugincore.model.Schema_Concept import Schema_Concept
 from src.model.SchemaConcepts.codegen.SchemaClasses_MRI import MagneticResonanceImagingMriSchema
 
 

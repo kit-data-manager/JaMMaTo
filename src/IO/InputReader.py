@@ -2,11 +2,11 @@ import os
 import logging
 from typing import Dict, Any
 
-from src.IO.MappingAbortionError import MappingAbortionError
+from mappingservice_plugincore.exceptions.MappingAbortionError import MappingAbortionError
+from mappingservice_plugincore.parser.ParserFactory import ParserFactory
 from src.IO.MapfileReader import MapFileReader
 from src.model.ImageMD import ImageMD
-from src.model.SchemaConcepts.MRI_Image import MRI_Image
-from src.parser.ParserFactory import ParserFactory
+#from src.model.SchemaConcepts.MRI_Image import MRI_Image
 from src.parser.impl.MRI_Parser import MRI_Parser
 from src.util import input_to_dict, get_filetype_with_magica
 from src.parser.mapping_util import map_a_dict
