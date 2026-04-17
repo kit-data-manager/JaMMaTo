@@ -11,7 +11,7 @@ class TestInputReader:
 
     def set_up_sample_data(self):
         dir_to_testscript = os.path.split(__file__)[0]
-        return os.path.join(dir_to_testscript, "../SampleData")
+        return os.path.join(dir_to_testscript, "../sampleData")
 
     def test_get_applicable_mriparser(self):
         tp = self.set_up_sample_data()

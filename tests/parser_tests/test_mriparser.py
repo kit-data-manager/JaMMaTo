@@ -13,7 +13,7 @@ class TestMRIparser:
         dir_to_testscript = os.path.split(__file__)[0]
         
         try:
-            test_dicompath = os.path.join(dir_to_testscript, "../SampleData/MRIm1.dcm")
+            test_dicompath = os.path.join(dir_to_testscript, "../sampleData/MRIm1.dcm")
             
             # Test that we can create the parser
             parser = MRI_Parser()
@@ -53,7 +53,7 @@ class TestMRIparser:
         dir_to_testscript = os.path.split(__file__)[0]
         
         try:
-            test_dicompath = os.path.join(dir_to_testscript, "../SampleData/MRIm1.dcm")
+            test_dicompath = os.path.join(dir_to_testscript, "../sampleData/MRIm1.dcm")
             
             parser = MRI_Parser()
             input_md = parser._read_input_file(test_dicompath)
