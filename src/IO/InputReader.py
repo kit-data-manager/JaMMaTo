@@ -4,6 +4,7 @@ from typing import Dict, Any
 
 from mappingservice_plugincore.exceptions.MappingAbortionError import MappingAbortionError
 from mappingservice_plugincore.parser.ParserFactory import ParserFactory
+from mappingservice_plugincore.IO.BaseInputReader import BaseInputReader
 from src.IO.MapfileReader import MapFileReader
 from src.model.ImageMD import ImageMD
 #from src.model.SchemaConcepts.MRI_Image import MRI_Image
@@ -13,7 +14,7 @@ from src.parser.mapping_util import map_a_dict
 from src.Preprocessor import Preprocessor
 
 
-class InputReader:
+class InputReader(BaseInputReader):
     """
     The input reader for MRI data following tomo_mapper architecture.
     
@@ -24,6 +25,7 @@ class InputReader:
     """
 
     def __init__(self, map_path, input_path):
+        super().__init__(map_path, input_path)
         logging.info("Preparing MRI parser based on mapping file and input.")
         
         # Read and parse the mapping file
@@ -33,13 +35,6 @@ class InputReader:
         self.study_mapping = MapFileReader.parse_mapinfo_for_study(self.mapping_dict)
         self.series_mapping = MapFileReader.parse_mapinfo_for_series(self.mapping_dict)
         self.perImage_mapping = MapFileReader.parse_mapinfo_for_perImage(self.mapping_dict)
-        
-        # Validate input file exists
-        if not os.path.exists(input_path):
-            logging.error("Input file {} does not exist. Aborting".format(input_path))
-            raise MappingAbortionError("Input file loading failed.")
-        
-        self.input_path = input_path
         
         # Check if MRI parser can handle this file
         self.parser_names = self.get_applicable_parsers(input_path)
