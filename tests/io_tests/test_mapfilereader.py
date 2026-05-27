@@ -32,8 +32,8 @@ class TestMapfileReader:
         study_mapping = MapFileReader.parse_mapinfo_for_study(mapping_dict)
         
         assert isinstance(study_mapping, dict)
-        assert 'study.studyID' in study_mapping
-        assert 'study.studyTitle' in study_mapping
+        assert study_mapping['studyInstanceUid'] == 'study.studyID'
+        assert study_mapping['studyDescription'] == 'study.studyTitle'
 
     def test_parse_mapinfo_for_series(self):
         """Test parsing series section from mapping."""
@@ -44,8 +44,8 @@ class TestMapfileReader:
         series_mapping = MapFileReader.parse_mapinfo_for_series(mapping_dict)
         
         assert isinstance(series_mapping, dict)
-        assert 'study.series.seriesID' in series_mapping
-        assert 'study.series.seriesTitle' in series_mapping
+        assert series_mapping['seriesInstanceUid'] == 'study.series.seriesID'
+        assert series_mapping['seriesDescription'] == 'study.series.seriesTitle'
 
     def test_parse_mapinfo_for_perImage(self):
         """Test parsing perImage section from mapping."""
@@ -56,7 +56,7 @@ class TestMapfileReader:
         perImage_mapping = MapFileReader.parse_mapinfo_for_perImage(mapping_dict)
         
         assert isinstance(perImage_mapping, dict)
-        assert 'study.series.images.perImage.sampleImagePosition' in perImage_mapping
+        assert perImage_mapping['imagePositionpatient'] == 'study.series.images.perImage.sampleImagePosition'
 
     def test_parse_mapinfo_missing_sections(self):
         """Test parsing when sections are missing."""
