@@ -12,6 +12,9 @@ lib/
 #### Gemma/python ###
 #/gemma
 #**/__pycache__
+__pycache__/
+*.py[cod]
+.pytest_cache/
 **/output
 #
 #### STS ###
