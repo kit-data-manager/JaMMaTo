@@ -1,17 +1,12 @@
 import os
 import logging
-from typing import Dict, Any
 
 from mappingservice_plugincore.exceptions.MappingAbortionError import MappingAbortionError
 from mappingservice_plugincore.parser.ParserFactory import ParserFactory
 from mappingservice_plugincore.IO.BaseInputReader import BaseInputReader
 from src.IO.MapfileReader import MapFileReader
-from src.model.ImageMD import ImageMD
-#from src.model.SchemaConcepts.MRI_Image import MRI_Image
-from src.parser.impl.MRI_Parser import MRI_Parser
-from src.util import input_to_dict, get_filetype_with_magica
-from src.parser.mapping_util import map_a_dict
-from src.Preprocessor import Preprocessor
+
+from mappingservice_plugincore.file_util import get_filetype_with_magica
 
 
 class InputReader(BaseInputReader):
