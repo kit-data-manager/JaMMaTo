@@ -28,15 +28,6 @@ class MRI_Parser(ImageParser):
     def expected_input_format():
         return ["application/octet-stream", "application/x-hdf5", "application/dicom", "application/x-iso9660-image"]
 
-    def _create_tomo_image(self, image_md, raw_md):
-        """
-        Create a tomography image from the parsed metadata.
-        This method is required by the parent ImageParser class.
-        """
-        # For MRI, we don't create tomography images, so return None
-        # or implement if needed for your specific use case
-        return None
-
     def parse(self, file_path, mapping) -> tuple[ImageMD, str]:
         input_md = self._read_input_file(file_path)
 
@@ -117,7 +108,7 @@ class MRI_Parser(ImageParser):
 
         output_dict = {}
         parsed_dict = input_to_dict(md)
-        print("+++++++  ",parsed_dict)
+        #print("+++++++  ",parsed_dict)
 
         if parsed_dict is None:
             logging.error(f"Not able to parse {md}.")
