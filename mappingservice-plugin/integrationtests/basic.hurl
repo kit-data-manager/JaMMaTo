@@ -34,7 +34,7 @@ Content-Type: application/json
 
 {
     "study": {
-        "study.studyID": "studyInstanceUid"
+        "studyInstanceUid" : "study.studyID"
     }
 }
 --boundary--
