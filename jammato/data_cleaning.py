@@ -40,11 +40,19 @@ class Data_Cleaning():
     @classmethod
     def merge_min_max_values(cls, args: list, object_iterable: Any) -> dict:
         input_args=args[0]
-        min_value=min([object.__dict__[input_args[0]] for object in object_iterable])
-        max_value=max([object.__dict__[input_args[1]] for object in object_iterable])
+        try:
+            min_value = min([object.__dict__[input_args[0]] for object in object_iterable])
+            max_value = max([object.__dict__[input_args[1]] for object in object_iterable])
+        except KeyError as e:
+            # One (or both) attributes are not available.
+            # Skip this cleaning step and continue the pipeline.
+            print(f"Skipping merge_min_max_values: missing attribute {e}")
+            return object_iterable
+
         for object in object_iterable:
-            object.__dict__[input_args[0]]=min_value
-            object.__dict__[input_args[1]]=max_value
+            object.__dict__[input_args[0]] = min_value
+            object.__dict__[input_args[1]] = max_value
+
         return object_iterable
     
     @classmethod
