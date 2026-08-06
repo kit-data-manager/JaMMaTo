@@ -27,7 +27,7 @@ class Metadata_Reader():
             file_name, file_extension = os.path.splitext(
                 metadata_document_directory)
             with zipfile.ZipFile(metadata_document_directory) as dataset:
-                for file in range(1, len(dataset.filelist)):
+                for file in range(0, len(dataset.filelist)):
                     with dataset.open(dataset.filelist[file].filename) as file:
                         datasetFileName, dataset_file_extension = os.path.splitext(
                             file.name)
