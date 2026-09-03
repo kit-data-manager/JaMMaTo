@@ -1,15 +1,10 @@
 import logging
-import os.path
 from json import JSONDecodeError
-from urllib.parse import urlparse
 
 from requests import HTTPError
 
 from mappingservice_plugincore.exceptions.MappingAbortionError import MappingAbortionError
-from mappingservice_plugincore.parser.ParserFactory import ParserFactory
 from mappingservice_plugincore.file_util import load_json
-
-import validators
 
 
 class MapFileReader:
@@ -41,42 +36,3 @@ class MapFileReader:
         except JSONDecodeError as e:
             logging.error("Unable to load map file as json. Please check file structure")
             raise MappingAbortionError("Map file loading failed.")
-
-    @staticmethod
-    def parse_mapinfo_for_study(mapping_dict: dict):
-        """
-        Parse mapping dictionary to extract study-related mapping information
-        :param mapping_dict: the full mapping dictionary
-        :return: study mapping dictionary
-        """
-        if 'study' in mapping_dict:
-            return mapping_dict['study']
-        else:
-            logging.warning("No study section found in mapping file")
-            return {}
-
-    @staticmethod
-    def parse_mapinfo_for_series(mapping_dict: dict):
-        """
-        Parse mapping dictionary to extract series-related mapping information
-        :param mapping_dict: the full mapping dictionary
-        :return: series mapping dictionary
-        """
-        if 'series' in mapping_dict:
-            return mapping_dict['series']
-        else:
-            logging.warning("No series section found in mapping file")
-            return {}
-
-    @staticmethod
-    def parse_mapinfo_for_perImage(mapping_dict: dict):
-        """
-        Parse mapping dictionary to extract per-image-related mapping information
-        :param mapping_dict: the full mapping dictionary
-        :return: perImage mapping dictionary
-        """
-        if 'perImage' in mapping_dict:
-            return mapping_dict['perImage']
-        else:
-            logging.warning("No perImage section found in mapping file")
-            return {}

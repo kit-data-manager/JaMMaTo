@@ -5,27 +5,53 @@ import os
 
 class OutputWriter:
     """
-    Output writer for MRI data following tomo_mapper architecture
+    Output writer for MRI metadata.
     """
 
     @staticmethod
-    def writeOutput(metadata_dict, output_path):
+    def writeOutput(metadata_dict: dict, output_path: str) -> None:
         """
-        Write the metadata dictionary to a JSON file
-        :param metadata_dict: the metadata dictionary to write
-        :param output_path: path to the output file
+        Write the metadata dictionary to a JSON file.
+
+        Args:
+            metadata_dict (dict):
+                Final MRI metadata dictionary.
+
+            output_path (str):
+                Path to the output JSON file.
         """
+
         try:
-            # Ensure output directory exists
             output_dir = os.path.dirname(output_path)
+
             if output_dir and not os.path.exists(output_dir):
-                os.makedirs(output_dir)
-            
-            with open(output_path, 'w', encoding="utf-8") as json_file:
-                json.dump(metadata_dict, json_file, indent=4, ensure_ascii=False)
-            
-            logging.info(f"Output successfully written to {output_path}")
-            
-        except Exception as e:
-            logging.error(f"Failed to write output to {output_path}: {e}")
+                os.makedirs(
+                    output_dir,
+                    exist_ok=True,
+                )
+
+            with open(
+                output_path,
+                "w",
+                encoding="utf-8",
+            ) as json_file:
+
+                json.dump(
+                    metadata_dict,
+                    json_file,
+                    indent=4,
+                    ensure_ascii=False,
+                )
+
+            logging.info(
+                "Output successfully written to %s",
+                output_path,
+            )
+
+        except (OSError, TypeError) as error:
+            logging.error(
+                "Failed to write output to %s: %s",
+                output_path,
+                error,
+            )
             raise
