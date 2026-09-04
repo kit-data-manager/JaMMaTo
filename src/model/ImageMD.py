@@ -1,0 +1,17 @@
+import os
+
+from pydantic import BaseModel
+
+from src.model.SchemaConcepts.MRI_Image import MRI_Image
+
+
+class ImageMD(BaseModel):
+
+    filePath: str
+    image_metadata: MRI_Image = None
+
+    def fileName(self):
+        return os.path.basename(self.filePath)
+
+    def folderName(self):
+        return os.path.basename(os.path.dirname(self.filePath))

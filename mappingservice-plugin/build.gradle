@@ -1,0 +1,61 @@
+buildscript {
+    // Buildscript repositories
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("org.tomlj:tomlj:1.1.1")
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+import org.tomlj.Toml
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'edu.kit.datamanager:mapping-plugin-core:2.0.0'
+}
+
+if (System.getenv('VERSION_OVERRIDE_BY_BRANCH')) {
+    project.version = System.getenv('VERSION_OVERRIDE_BY_BRANCH')
+} else {
+    def rDir = new File(projectDir, '../')
+    def somesyFile = new File(rDir, 'somesy.toml')
+    def toml = Toml.parse(somesyFile.toPath())
+    project.version = toml.get("project.version")
+}
+
+tasks.register('printVersion') {
+    println project.version
+}
+
+group 'edu.kit.datamanager'
+
+//Task for creating a resource file with the version info
+tasks.register("generateVersionProps", WriteProperties) { t ->
+    def generatedResourcesDir = project.layout.buildDirectory.dir(["resources", "main"].join(File.separator))
+    def outputFile = generatedResourcesDir.map { it.file("dicom2json.properties") }
+
+    t.destinationFile = outputFile.get().asFile
+    t.property("version", project.version)
+}
+
+//resolveMainClassName.dependsOn("generateVersionProps")
+
+jar {
+    dependsOn(generateVersionProps)
+    archiveFileName
+}
+
+//bootJar {
+//    enabled = false
+//}
