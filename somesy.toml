@@ -1,0 +1,35 @@
+[project]
+name = "JaMMaTo"
+version = "4.0.0rc"
+description = "The software JaMMaTo (JSON Metadata Mapping Tool) is a metadata mapping tool based on Python, and is used for mapping metadata from a proprietary file format schema to a JSON format schema."
+
+keywords = ["MRI", "DICOM", "metadata", "extraction", "schema"]
+license = "Apache-2.0"
+repository = "https://github.com/kit-data-manager/JaMMaTo"
+
+# This is you, the proud author of your project:
+[[project.people]]
+given-names = "Gabin Thibaut"
+family-names = "Oumbe Tekam"
+orcid = "https://orcid.org/0000-0002-6745-3464"
+maintainer = true  # currently maintains the project (i.e. is a contact person)
+
+[[project.people]]
+given-names = "Germaine"
+family-names = "Götzelmann"
+orcid = "https://orcid.org/0000-0003-3974-3728"
+maintainer = true  # currently maintains the project (i.e. is a contact person)
+
+[[project.people]]
+given-names = "Nicolas"
+family-names = "Blumenröhr"
+orcid = "https://orcid.org/0009-0007-0235-4995"
+author = true      # is a full author of the project (i.e. appears in citations)
+publication_author = true
+
+[[project.people]]
+given-names = "Rossella"
+family-names = "Aversa"
+orcid = "https://orcid.org/0000-0003-2534-0063"
+author = true      # is a full author of the project (i.e. appears in citations)
+publication_author = true
