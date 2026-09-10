@@ -1,10 +1,11 @@
 from pydantic import BaseModel
 from typing import Optional, Dict, Any
 
+from mappingservice_plugincore.model.Schema_Concept import Schema_Concept
 from src.model.SchemaConcepts.codegen.SchemaClasses_MRI import MagneticResonanceImagingMriSchema
 
 
-class MRI_Image(BaseModel):
+class MRI_Image(Schema_Concept, BaseModel):
 
     study: Optional[Dict[str, Any]] = None
     series: Optional[Dict[str, Any]] = None

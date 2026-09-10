@@ -2,7 +2,7 @@ import argparse
 import logging
 import os
 
-from src.IO.MappingAbortionError import MappingAbortionError
+from mappingservice_plugincore.exceptions.MappingAbortionError import MappingAbortionError
 
 from src.IO.InputReader import InputReader
 from src.IO.OutputWriter import OutputWriter

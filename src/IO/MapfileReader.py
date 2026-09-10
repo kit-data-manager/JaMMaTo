@@ -3,8 +3,8 @@ from json import JSONDecodeError
 
 from requests import HTTPError
 
-from src.IO.MappingAbortionError import MappingAbortionError
-from src.util import load_json
+from mappingservice_plugincore.exceptions.MappingAbortionError import MappingAbortionError
+from mappingservice_plugincore.file_util import load_json
 
 
 class MapFileReader:

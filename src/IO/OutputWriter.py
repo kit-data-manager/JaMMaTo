@@ -2,6 +2,7 @@ import json
 import logging
 import os
 
+from mappingservice_plugincore.exceptions.MappingAbortionError import MappingAbortionError
 
 class OutputWriter:
     """

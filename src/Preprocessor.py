@@ -3,9 +3,10 @@ import logging
 from datetime import datetime
 
 from jsonpath_ng.parser import JsonPathParser
+from mappingservice_plugincore.Preprocessor import Preprocessor as CorePreprocessor
 
 
-class Preprocessor:
+class Preprocessor(CorePreprocessor):
     """
     JaMMaTo/MRI-specific preprocessing before schema construction.
 

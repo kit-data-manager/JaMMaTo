@@ -6,15 +6,16 @@ from typing import Any
 
 import pydicom
 
-from src.IO.MappingAbortionError import MappingAbortionError
+from mappingservice_plugincore.exceptions.MappingAbortionError import MappingAbortionError
 from src.Preprocessor import Preprocessor
 from src.model.ImageMD import ImageMD
+from mappingservice_plugincore.parser.ImageParser import ImageParser
 from src.model.SchemaConcepts.MRI_Image import MRI_Image
 from src.parser.mapping_util import map_a_dict
 from src.resources.maps.mapping import mriparser_full
 
 
-class MRI_Parser:
+class MRI_Parser(ImageParser):
     """
     MRI/DICOM parser preserving the core JaMMaTo behaviour while following
     the common mapper architecture.
