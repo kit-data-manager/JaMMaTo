@@ -1,0 +1,99 @@
+name: Build and use plugin
+
+on:
+  push:
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
+
+        # Use both LTS releases and latest one for tests
+        versions: [ {  jdk: 17, mapping-service: v2.0.2 }, {  jdk: 21, mapping-service: latest } ]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Extract branch name
+      shell: bash
+      run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+      id: extract_branch
+
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'zulu'
+        java-version: ${{ matrix.versions.jdk }}
+
+    - name: Build with Gradle
+      run: |
+        JAR_VERSION=$(./mappingservice-plugin/gradlew printVersion -q -p ./mappingservice-plugin/)
+        JAR_VERSION=${JAR_VERSION##*$'\n'}
+        ./mappingservice-plugin/gradlew clean jar -p ./mappingservice-plugin/
+        ls -ll ./mappingservice-plugin/build/libs/
+        echo "JAR_VERSION=${JAR_VERSION}"
+        mv -v ./mappingservice-plugin/build/libs/JaMMaToPlugin-$JAR_VERSION.jar ./mappingservice-plugin/build/libs/JaMMaToplugin.jar
+      env:
+        VERSION_OVERRIDE_BY_BRANCH: ${{ steps.extract_branch.outputs.branch }}
+
+    - name: Upload job artifact
+      uses: actions/upload-artifact@v4
+      with:
+          name: jar-jdk${{ matrix.versions.jdk }}
+          path: ./mappingservice-plugin/build/libs/JaMMaToplugin.jar
+
+  test:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      fail-fast: false #We want to test independent of each other - success on a stable version is more important than on the latest version
+      matrix:
+        operating-system: [ubuntu-latest]
+
+        # Use both LTS releases and latest one for tests
+        versions: [ {  jdk: 17, mapping-service: v2.0.2 }, {  jdk: 21, mapping-service: latest } ]
+    needs: build
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Extract branch name
+      shell: bash
+      run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+      id: extract_branch
+    - name: Download built jar
+      uses: actions/download-artifact@v4
+      with:
+          name: jar-jdk${{ matrix.versions.jdk }}
+          path: ./plugins
+
+    - name: Run Docker Container # and wait for mapping service to be healthy before proceeding to tests
+      run: |
+          docker run -d -p 8095:8095 -e PIP_BREAK_SYSTEM_PACKAGES=1 -e SPRING_APPLICATION_JSON='{"mapping-service.executionTimeout":300}' -v ./plugins/JaMMaToplugin.jar:/spring/mapping-service/plugins/JaMMaToplugin.jar --name mapping4docker ghcr.io/kit-data-manager/mapping-service:${{ matrix.versions.mapping-service }}
+          echo "Wait for mapping service to be healthy before proceeding to tests"
+          while true; do
+            if ! docker ps | grep -q mapping4docker; then
+              echo "Docker container stopped unexpectedly. Aborting."
+              exit 1
+            fi
+            if curl -f http://localhost:8095/actuator/info; then
+              echo "Service is running."
+              break
+            fi
+            echo "Waiting for the service to be ready..."
+            docker logs --tail 20 mapping4docker
+            sleep 5
+          done
+    - name: Run Tests with Hurl
+      run: |
+         curl --location --remote-name https://github.com/Orange-OpenSource/hurl/releases/download/6.0.0/hurl_6.0.0_amd64.deb
+         sudo dpkg -i hurl_6.0.0_amd64.deb
+         sudo apt install -y dos2unix
+         unix2dos -n ./mappingservice-plugin/integrationtests/basic.hurl ./mappingservice-plugin/integrationtests/basic_crlf.hurl
+         hurl --variable host=http://localhost:8095 --test ./mappingservice-plugin/integrationtests/basic_crlf.hurl --verbose --file-root .
+      env:
+        VERSION_OVERRIDE_BY_BRANCH: ${{ steps.extract_branch.outputs.branch }}
+    - name: Stop Docker Container
+      run: docker stop mapping4docker
