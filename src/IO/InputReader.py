@@ -1,17 +1,21 @@
 import logging
 import os
-import shutil
+from typing import Optional
 
-from src.IO.MappingAbortionError import MappingAbortionError
+from mappingservice_plugincore.exceptions.MappingAbortionError import MappingAbortionError
+from mappingservice_plugincore.IO.BaseInputReader import BaseInputReader
+from mappingservice_plugincore.parser.ParserFactory import ParserFactory 
+
+import mappingservice_plugincore.file_util as core_file_util
+
 from src.IO.MapfileReader import MapFileReader
-from src.parser.ParserFactory import ParserFactory
-from src.util import extract_zip_file, is_zipfile
 
-class InputReader:
+class InputReader(BaseInputReader):
 
     def __init__(self, map_path: str, input_path: str):
-        self.map_path = map_path
-        self.input_path = input_path
+
+        super().__init__(map_path, input_path)
+
         if not os.path.exists(input_path):
             logging.error("Input file %s does not exist. Aborting", input_path)
             raise MappingAbortionError("Input file loading failed.")
@@ -25,10 +29,10 @@ class InputReader:
         self.temp_dir_path = None
         self.working_dir_path = input_path
 
-        if is_zipfile(input_path):
+        if core_file_util.is_zipfile(input_path):
             logging.info("ZIP input detected. Extracting MRI dataset.")
 
-            self.temp_dir_path = extract_zip_file(input_path)
+            self.temp_dir_path = core_file_util.extract_zip_file(input_path)
             self.working_dir_path = self.temp_dir_path
 
         logging.debug(
@@ -63,10 +67,3 @@ class InputReader:
             return None
 
         return result.image_metadata.to_schema_dict()
-
-    def clean_up(self):
-        if self.temp_dir_path and os.path.exists(self.temp_dir_path):
-            shutil.rmtree(self.temp_dir_path)
-            logging.info("The temporary extraction folder has been deleted.")
-        else:
-            logging.debug("No temporary folder used, nothing to clean up.")

@@ -1,4 +1,4 @@
-from src.parser.ParserFactory import ParserFactory
+from mappingservice_plugincore.parser.ParserFactory import ParserFactory
 from src.parser.impl.MRI_Parser import MRI_Parser
 
 

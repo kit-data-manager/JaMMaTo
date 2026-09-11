@@ -1,4 +1,7 @@
 
+![Tests](https://img.shields.io/github/actions/workflow/status/kit-data-manager/JaMMaTo/python-app.yml?label=Tests)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 # JaMMaTo
 
 JaMMaTo (JSON Metadata Mapping Tool) is a Python-based metadata mapping tool designed for mapping metadata from a proprietary file format schema to a JSON format schema. The primary supported input format is DICOM, including multiframe DICOM. The codebase is modular so new input parsers and mapping profiles can be added to support additional formats.
